@@ -8,15 +8,28 @@
 </head>
 <body>
    <!-- Barra lateral vertical -->
-  <nav class="sidebar">
-    <div class="sidebar-logo">Invitelio</div>
-    <ul class="sidebar-menu">
-      <li><a href="#inicio">🏠 Inicio</a></li>
-      <li><a href="#diseños">🎨 Diseños</a></li>
-      <li><a href="#precios">💲 Precios</a></li>
-      <li><a href="#contacto">✉️ Contacto</a></li>
-    </ul>
-  </nav>
+  <nav class="sidebar" style="
+  position:fixed;
+  left:0;
+  top:0;
+  height:100vh;
+  width:250px;
+  background:#fff;
+  box-shadow:15px 0 25px rgba(0,0,0,0.15);
+  z-index:1000;
+  padding:20px">
+  
+  <div class="sidebar-header">
+    <img src="/logo-invitelio.webp" alt="Logo" class="sidebar-logo">
+    <h2>Invitelio</h2>
+  </div>
+  <ul class="sidebar-menu">
+    <li><a href="#"><i class="fas fa-home"></i> Inicio</a></li>
+    <li><a href="#"><i class="fas fa-palette"></i> Diseños</a></li>
+    <li><a href="#"><i class="fas fa-tags"></i> Precios</a></li>
+    <li><a href="#"><i class="fas fa-envelope"></i> Contacto</a></li>
+  </ul>
+</nav>
     <header class="hero">
         <div class="hero-content">
             <h1>Invitaciones Digitales que Inspiran</h1>
