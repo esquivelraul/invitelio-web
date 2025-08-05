@@ -3,122 +3,140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invitelio - Invitaciones Digitales Elegantes</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Raleway:wght@300;400&display=swap" rel="stylesheet">
+    <title>Invitelio - Invitaciones Digitales Premium</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
     <style>
         :root {
-            --blush: #FFD1DC;    --lavender: #E6E6FA;
-            --mint: #C8E8E0;     --peach: #FFDAB9;
-            --powder: #B0E0E6;   --ivory: #FFFFF0;
-            --soft-gray: #F5F5F5; --text-color: #6D6875;
+            --rosa-suave: #F3D7D7;
+            --rosa-profundo: #E8B4B4;
+            --beige: #F5EEE6;
+            --gris-elegante: #6D6875;
         }
         
         body {
-            font-family: 'Raleway', sans-serif;
             margin: 0;
+            padding: 0;
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            background: linear-gradient(135deg, var(--ivory) 0%, var(--powder) 100%);
+            background: var(--beige);
+            font-family: 'Montserrat', sans-serif;
+            text-align: center;
             overflow: hidden;
         }
         
-        .main-container {
-            text-align: center;
-            padding: 2rem;
-            max-width: 90%;
+        .elegant-container {
+            max-width: 800px;
+            padding: 40px;
+            animation: fadeIn 1.2s ease-out;
         }
         
-        .logo {
+        .luxury-logo {
             font-family: 'Playfair Display', serif;
-            font-size: 5.5rem; /* Tamaño aumentado */
-            font-weight: 700;
-            color: var(--text-color);
-            margin-bottom: 2rem;
-            letter-spacing: 3px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.05);
+            color: var(--gris-elegante);
+            font-size: 4.5rem;
+            margin-bottom: 1.5rem;
+            letter-spacing: 2px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
         }
         
-        .tagline {
-            font-size: 2.2rem; /* Tamaño aumentado */
-            color: var(--text-color);
+        .sophisticated-text {
+            position: relative;
+            font-size: 2rem;
+            color: var(--gris-elegante);
             margin-bottom: 3rem;
             line-height: 1.6;
-            font-weight: 300;
         }
         
-        .tagline span {
+        .highlight {
             font-weight: 400;
-            background: linear-gradient(to right, var(--blush), var(--lavender));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-        
-        .cta-button {
+            position: relative;
             display: inline-block;
-            background: white;
-            color: var(--text-color);
-            padding: 1.2rem 3rem; /* Tamaño aumentado */
-            border-radius: 50px;
+        }
+        
+        .highlight::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--rosa-suave), var(--rosa-profundo));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+            transform-origin: right;
+        }
+        
+        .sophisticated-text:hover .highlight::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+        
+        .refined-button {
+            display: inline-block;
+            background: transparent;
+            color: var(--gris-elegante);
+            padding: 1rem 2.5rem;
+            border: 1px solid var(--gris-elegante);
+            border-radius: 0;
             text-decoration: none;
-            font-size: 1.3rem;
-            box-shadow: 0 4px 20px rgba(109, 104, 117, 0.15);
+            font-size: 1.1rem;
+            letter-spacing: 1px;
             transition: all 0.4s ease;
-            border: 1px solid rgba(109, 104, 117, 0.1);
-            margin-top: 2rem;
+            position: relative;
+            overflow: hidden;
         }
         
-        .cta-button:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(109, 104, 117, 0.2);
-            background: linear-gradient(to right, var(--blush), var(--lavender));
-            color: white;
+        .refined-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(232, 180, 180, 0.2), transparent);
+            transition: all 0.6s ease;
         }
         
-        .color-palette {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            margin-top: 3rem;
+        .refined-button:hover {
+            background: rgba(255, 255, 255, 0.2);
         }
         
-        .color-circle {
-            width: 50px; /* Tamaño aumentado */
-            height: 50px;
-            border-radius: 50%;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
+        .refined-button:hover::before {
+            left: 100%;
         }
         
-        .color-circle:hover {
-            transform: scale(1.2) translateY(-5px);
+        .arrow {
+            margin-left: 8px;
+            transition: transform 0.3s ease;
+        }
+        
+        .refined-button:hover .arrow {
+            transform: translateX(5px);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
         @media (max-width: 768px) {
-            .logo { font-size: 3.5rem; }
-            .tagline { font-size: 1.6rem; }
-            .cta-button { padding: 1rem 2rem; }
-            .color-circle { width: 40px; height: 40px; }
+            .luxury-logo { font-size: 3.5rem; }
+            .sophisticated-text { font-size: 1.6rem; }
+            .refined-button { padding: 0.8rem 2rem; }
         }
     </style>
 </head>
 <body>
-    <div class="main-container">
-        <h1 class="logo">Invitelio</h1>
-        <p class="tagline">Invitaciones digitales con <span>elegancia</span> y <span>estilo</span></p>
-        <a href="#" class="cta-button">Comenzar <i class="fas fa-arrow-right"></i></a>
-        
-        <div class="color-palette">
-            <div class="color-circle" style="background-color: var(--blush);"></div>
-            <div class="color-circle" style="background-color: var(--lavender);"></div>
-            <div class="color-circle" style="background-color: var(--mint);"></div>
-            <div class="color-circle" style="background-color: var(--peach);"></div>
-        </div>
+    <div class="elegant-container">
+        <h1 class="luxury-logo">Invitelio</h1>
+        <p class="sophisticated-text">
+            Invitaciones digitales con <span class="highlight">elegancia</span> y <span class="highlight">estilo</span>
+        </p>
+        <a href="#" class="refined-button">
+            Continuar <span class="arrow">→</span>
+        </a>
     </div>
-
-    <!-- Font Awesome para el ícono -->
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </body>
 </html>
