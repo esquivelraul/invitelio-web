@@ -4,37 +4,73 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Invitelio - Invitaciones Digitales Elegantes</title>
-    <link rel="stylesheet" href="styles.css">
-    <!-- Puedes agregar Font Awesome para íconos -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <meta name="description" content="Invitaciones digitales premium para bodas, XV años y eventos especiales en México">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <!-- Barra de navegación fija -->
-    <nav class="navbar">
-        <div class="navbar-container">
-            <a href="index.html" class="logo">Invitelio</a>
+    <!-- Navbar -->
+    <header class="header">
+        <nav class="navbar">
+            <a href="#" class="logo">Invitelio</a>
             <ul class="nav-menu">
                 <li><a href="#inicio">Inicio</a></li>
                 <li><a href="#servicios">Servicios</a></li>
-                <li><a href="#galeria">Galería</a></li>
+                <li><a href="#proceso">Cómo funciona</a></li>
+                <li><a href="#testimonios">Testimonios</a></li>
                 <li><a href="#precios">Precios</a></li>
-                <li><a href="#contacto">Contacto</a></li>
-                <li><a href="login.html" class="nav-btn">Acceder</a></li>
+                <li><a href="#contacto" class="cta-nav">Contacto</a></li>
             </ul>
-        </div>
-    </nav>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </nav>
+    </header>
 
-    <!-- Sección hero -->
-    <section class="hero" id="inicio">
-        <div class="hero-container">
-            <h1>Invitaciones digitales elegantes para tus eventos especiales</h1>
-            <p>Diseños personalizados que impresionan a tus invitados y simplifican tu organización.</p>
-            <a href="#servicios" class="cta-btn">Ver más</a>
+    <!-- Hero Section -->
+    <section id="inicio" class="hero">
+        <div class="hero-content fade-in">
+            <h1>Invitaciones Digitales que Dejan Huella</h1>
+            <p>Diseños exclusivos para tus eventos especiales</p>
+            <a href="#servicios" class="cta-button">Ver Catálogo</a>
         </div>
     </section>
 
-    <!-- Otras secciones irían aquí -->
+    <!-- Servicios Section -->
+    <section id="servicios" class="services">
+        <h2>Nuestros Servicios</h2>
+        <div class="services-grid">
+            <div class="service-card fade-in">
+                <i class="fas fa-ring"></i>
+                <h3>Bodas</h3>
+                <p>Diseños elegantes para tu día especial</p>
+            </div>
+            <!-- Más tarjetas de servicios -->
+        </div>
+    </section>
 
-    <script src="script.js"></script>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Contacto</h3>
+                <p><i class="fas fa-envelope"></i> hola@invitelio.com.mx</p>
+            </div>
+            <div class="footer-section">
+                <h3>Redes Sociales</h3>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 Invitelio</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
 </body>
 </html>
