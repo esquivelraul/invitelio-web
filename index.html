@@ -3,16 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invitelio - Invitaciones Digitales Premium</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+    <title>Invitelio - Invitaciones Digitales</title>
     <style>
-        :root {
-            --rosa-suave: #F3D7D7;
-            --rosa-profundo: #E8B4B4;
-            --beige: #F5EEE6;
-            --gris-elegante: #6D6875;
-        }
-        
         body {
             margin: 0;
             padding: 0;
@@ -20,123 +12,60 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background: var(--beige);
-            font-family: 'Montserrat', sans-serif;
+            background: #f8f5f2; /* Fondo beige claro */
+            font-family: 'Arial', sans-serif;
             text-align: center;
-            overflow: hidden;
         }
         
-        .elegant-container {
+        .container {
             max-width: 800px;
-            padding: 40px;
-            animation: fadeIn 1.2s ease-out;
+            padding: 20px;
         }
         
-        .luxury-logo {
-            font-family: 'Playfair Display', serif;
-            color: var(--gris-elegante);
-            font-size: 4.5rem;
-            margin-bottom: 1.5rem;
-            letter-spacing: 2px;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        h1 {
+            color: #d4a5a5; /* Rosa suave */
+            font-size: 4rem;
+            margin-bottom: 20px;
         }
         
-        .sophisticated-text {
-            position: relative;
-            font-size: 2rem;
-            color: var(--gris-elegante);
-            margin-bottom: 3rem;
-            line-height: 1.6;
+        p {
+            color: #6d6875; /* Gris morado */
+            font-size: 1.8rem;
+            margin-bottom: 40px;
         }
         
         .highlight {
-            font-weight: 400;
-            position: relative;
+            color: #e8b4b8; /* Rosa más intenso */
+            font-weight: bold;
+        }
+        
+        .btn {
             display: inline-block;
-        }
-        
-        .highlight::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, var(--rosa-suave), var(--rosa-profundo));
-            transform: scaleX(0);
-            transition: transform 0.3s ease;
-            transform-origin: right;
-        }
-        
-        .sophisticated-text:hover .highlight::after {
-            transform: scaleX(1);
-            transform-origin: left;
-        }
-        
-        .refined-button {
-            display: inline-block;
-            background: transparent;
-            color: var(--gris-elegante);
-            padding: 1rem 2.5rem;
-            border: 1px solid var(--gris-elegante);
-            border-radius: 0;
+            background: #d4a5a5; /* Rosa suave */
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
             text-decoration: none;
-            font-size: 1.1rem;
-            letter-spacing: 1px;
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
         }
         
-        .refined-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(232, 180, 180, 0.2), transparent);
-            transition: all 0.6s ease;
+        .btn:hover {
+            background: #c38d8d; /* Rosa más oscuro al pasar el mouse */
+            transform: translateY(-3px);
         }
         
-        .refined-button:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-        
-        .refined-button:hover::before {
-            left: 100%;
-        }
-        
-        .arrow {
-            margin-left: 8px;
-            transition: transform 0.3s ease;
-        }
-        
-        .refined-button:hover .arrow {
-            transform: translateX(5px);
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        @media (max-width: 768px) {
-            .luxury-logo { font-size: 3.5rem; }
-            .sophisticated-text { font-size: 1.6rem; }
-            .refined-button { padding: 0.8rem 2rem; }
+        @media (max-width: 600px) {
+            h1 { font-size: 3rem; }
+            p { font-size: 1.4rem; }
         }
     </style>
 </head>
 <body>
-    <div class="elegant-container">
-        <h1 class="luxury-logo">Invitelio</h1>
-        <p class="sophisticated-text">
-            Invitaciones digitales con <span class="highlight">elegancia</span> y <span class="highlight">estilo</span>
-        </p>
-        <a href="#" class="refined-button">
-            Continuar <span class="arrow">→</span>
-        </a>
+    <div class="container">
+        <h1>Invitelio</h1>
+        <p>Invitaciones digitales con <span class="highlight">elegancia</span> y <span class="highlight">estilo</span></p>
+        <a href="#" class="btn">Continuar →</a>
     </div>
 </body>
 </html>
