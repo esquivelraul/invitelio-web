@@ -3,256 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invitelio | Invitaciones Digitales Profesionales</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="/style.css">
-    <style>
-        /* Estilos críticos inline para evitar FOUC */
-        body {
-            margin: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            overflow-x: hidden;
-        }
-    </style>
+    <title>Invitelio - Invitaciones Digitales Elegantes</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Puedes agregar Font Awesome para íconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <!-- Barra Lateral -->
-    <nav class="sidebar">
-        <div class="sidebar-header">
-            <img src="/images/logo-invitelio.webp" alt="Logo Invitelio" width="120">
-            <h2>Invitelio</h2>
-        </div>
-        <ul class="sidebar-menu">
-            <li><a href="#inicio"><i class="fas fa-home"></i> Inicio</a></li>
-            <li><a href="#disenos"><i class="fas fa-palette"></i> Diseños</a></li>
-            <li><a href="#precios"><i class="fas fa-tags"></i> Precios</a></li>
-            <li><a href="#contacto"><i class="fas fa-envelope"></i> Contacto</a></li>
-        </ul>
-        <div class="sidebar-footer">
-            <a href="#login"><i class="fas fa-user-circle"></i> Mi Cuenta</a>
+    <!-- Barra de navegación fija -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="logo">Invitelio</a>
+            <ul class="nav-menu">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#galeria">Galería</a></li>
+                <li><a href="#precios">Precios</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+                <li><a href="login.html" class="nav-btn">Acceder</a></li>
+            </ul>
         </div>
     </nav>
 
-    <!-- Contenido Principal -->
-    <main class="main-content">
-        <header class="hero">
-            <div class="hero-content">
-                <h1>Invitaciones Digitales que Inspiran</h1>
-                <p>Diseños únicos para bodas, cumpleaños y eventos corporativos. Personaliza y comparte en minutos.</p>
-                <a href="#galeria" class="cta-button">
-                    <i class="fas fa-eye"></i> Ver ejemplos
-                </a>
-            </div>
-            <img src="/images/hero-invitacion.webp" alt="Invitación de muestra" class="hero-image">
-        </header>
-    </main>
+    <!-- Sección hero -->
+    <section class="hero" id="inicio">
+        <div class="hero-container">
+            <h1>Invitaciones digitales elegantes para tus eventos especiales</h1>
+            <p>Diseños personalizados que impresionan a tus invitados y simplifican tu organización.</p>
+            <a href="#servicios" class="cta-btn">Ver más</a>
+        </div>
+    </section>
 
-    <!-- CSS Completo -->
-    <style>
-        /* Variables de color */
-        :root {
-            --primary: #ad1457;
-            --primary-dark: #880e4f;
-            --accent: #f8bbd0;
-            --text: #333;
-            --text-light: #777;
-        }
+    <!-- Otras secciones irían aquí -->
 
-        /* Barra Lateral */
-        .sidebar {
-            position: fixed;
-            left: 0;
-            top: 0;
-            width: 280px;
-            height: 100vh;
-            background: linear-gradient(180deg, #ffffff 0%, #f9f9f9 100%);
-            box-shadow: 12px 0 30px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-            padding: 25px 0;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .sidebar:hover {
-            box-shadow: 15px 0 40px rgba(0, 0, 0, 0.15);
-        }
-
-        .sidebar-header {
-            padding: 0 25px 25px;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .sidebar-header img {
-            max-width: 120px;
-            margin-bottom: 10px;
-        }
-
-        .sidebar-header h2 {
-            color: var(--primary);
-            margin: 0;
-            font-size: 1.4rem;
-        }
-
-        .sidebar-menu {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .sidebar-menu li {
-            margin: 5px 0;
-        }
-
-        .sidebar-menu a {
-            display: flex;
-            align-items: center;
-            padding: 12px 25px;
-            color: var(--text);
-            text-decoration: none;
-            font-size: 1rem;
-            transition: all 0.3s;
-        }
-
-        .sidebar-menu a:hover {
-            background: rgba(173, 20, 87, 0.05);
-            color: var(--primary);
-            border-left: 4px solid var(--primary);
-        }
-
-        .sidebar-menu i {
-            margin-right: 12px;
-            font-size: 1.1rem;
-            width: 24px;
-            text-align: center;
-        }
-
-        .sidebar-footer {
-            position: absolute;
-            bottom: 20px;
-            width: 100%;
-            padding: 0 25px;
-        }
-
-        /* Contenido Principal */
-        .main-content {
-            margin-left: 280px;
-            min-height: 100vh;
-        }
-
-        /* Hero Section */
-        .hero {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 6rem 8%;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .hero-content {
-            max-width: 500px;
-        }
-
-        .hero h1 {
-            font-size: 2.8rem;
-            color: var(--primary);
-            margin-bottom: 1rem;
-            line-height: 1.2;
-        }
-
-        .hero p {
-            font-size: 1.1rem;
-            color: var(--text-light);
-            margin-bottom: 2rem;
-            line-height: 1.6;
-        }
-
-        .cta-button {
-            display: inline-flex;
-            align-items: center;
-            background: var(--primary);
-            color: white;
-            padding: 12px 28px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s;
-        }
-
-        .cta-button:hover {
-            background: var(--primary-dark);
-            transform: translateY(-3px);
-            box-shadow: 0 4px 12px rgba(173, 20, 87, 0.3);
-        }
-
-        .cta-button i {
-            margin-right: 8px;
-        }
-
-        .hero-image {
-            max-width: 500px;
-            border-radius: 12px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-            animation: float 6s ease-in-out infinite;
-        }
-
-        /* Animaciones */
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
-        }
-
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .sidebar {
-                width: 240px;
-            }
-            .main-content {
-                margin-left: 240px;
-            }
-            .hero {
-                flex-direction: column;
-                text-align: center;
-                padding: 4rem 2rem;
-            }
-            .hero-content {
-                margin-bottom: 3rem;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .sidebar {
-                transform: translateX(-100%);
-                width: 280px;
-            }
-            .sidebar.active {
-                transform: translateX(0);
-            }
-            .main-content {
-                margin-left: 0;
-            }
-            .hero h1 {
-                font-size: 2.2rem;
-            }
-        }
-    </style>
-
-    <!-- Script para menú móvil -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Opcional: Botón para mostrar/ocultar barra en móviles
-            if (window.innerWidth < 768) {
-                const menuToggle = document.createElement('button');
-                menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
-                menuToggle.className = 'menu-toggle';
-                document.body.appendChild(menuToggle);
-                
-                menuToggle.addEventListener('click', () => {
-                    document.querySelector('.sidebar').classList.toggle('active');
-                });
-            }
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
