@@ -37,4 +37,26 @@ const appearOnScroll = new IntersectionObserver((entries) => {
 
 fadeElements.forEach(element => {
     appearOnScroll.observe(element);
+}
+// En tu main.js - Lazy Loading
+document.addEventListener("DOMContentLoaded", function() {
+  const images = document.querySelectorAll("img[data-src]");
+  
+  const imgOptions = {
+    threshold: 0.5,
+    rootMargin: "0px 0px 50px 0px"
+  };
+  
+  const imgObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const img = entry.target;
+      img.src = img.dataset.src;
+      img.removeAttribute("data-src");
+      observer.unobserve(img);
+    });
+  }, imgOptions);
+
+  images.forEach(image => imgObserver.observe(image));
 });
+);
