@@ -4,27 +4,121 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Invitelio - Invitaciones Digitales Elegantes</title>
-    <meta name="description" content="Diseños exclusivos en colores pastel para tus eventos especiales">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Raleway:wght@300;400&display=swap">
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Raleway:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --blush: #FFD1DC;    --lavender: #E6E6FA;
+            --mint: #C8E8E0;     --peach: #FFDAB9;
+            --powder: #B0E0E6;   --ivory: #FFFFF0;
+            --soft-gray: #F5F5F5; --text-color: #6D6875;
+        }
+        
+        body {
+            font-family: 'Raleway', sans-serif;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, var(--ivory) 0%, var(--powder) 100%);
+            overflow: hidden;
+        }
+        
+        .main-container {
+            text-align: center;
+            padding: 2rem;
+            max-width: 90%;
+        }
+        
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 5.5rem; /* Tamaño aumentado */
+            font-weight: 700;
+            color: var(--text-color);
+            margin-bottom: 2rem;
+            letter-spacing: 3px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .tagline {
+            font-size: 2.2rem; /* Tamaño aumentado */
+            color: var(--text-color);
+            margin-bottom: 3rem;
+            line-height: 1.6;
+            font-weight: 300;
+        }
+        
+        .tagline span {
+            font-weight: 400;
+            background: linear-gradient(to right, var(--blush), var(--lavender));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: var(--text-color);
+            padding: 1.2rem 3rem; /* Tamaño aumentado */
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.3rem;
+            box-shadow: 0 4px 20px rgba(109, 104, 117, 0.15);
+            transition: all 0.4s ease;
+            border: 1px solid rgba(109, 104, 117, 0.1);
+            margin-top: 2rem;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(109, 104, 117, 0.2);
+            background: linear-gradient(to right, var(--blush), var(--lavender));
+            color: white;
+        }
+        
+        .color-palette {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+        
+        .color-circle {
+            width: 50px; /* Tamaño aumentado */
+            height: 50px;
+            border-radius: 50%;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .color-circle:hover {
+            transform: scale(1.2) translateY(-5px);
+        }
+        
+        @media (max-width: 768px) {
+            .logo { font-size: 3.5rem; }
+            .tagline { font-size: 1.6rem; }
+            .cta-button { padding: 1rem 2rem; }
+            .color-circle { width: 40px; height: 40px; }
+        }
+    </style>
 </head>
 <body>
-    <div class="pastel-background">
-        <main class="elegant-container">
-            <h1 class="delicate-logo">Invitelio</h1>
-            <p class="sophisticated-tagline">Invitaciones digitales con <span>elegancia</span> y <span>estilo</span></p>
-            <a href="home.html" class="pastel-cta">
-                Comenzar <i class="fas fa-arrow-right"></i>
-            </a>
-            
-            <div class="color-palette-sample">
-                <div class="pastel-circle" style="background-color: var(--blush);"></div>
-                <div class="pastel-circle" style="background-color: var(--lavender);"></div>
-                <div class="pastel-circle" style="background-color: var(--mint);"></div>
-                <div class="pastel-circle" style="background-color: var(--peach);"></div>
-            </div>
-        </main>
+    <div class="main-container">
+        <h1 class="logo">Invitelio</h1>
+        <p class="tagline">Invitaciones digitales con <span>elegancia</span> y <span>estilo</span></p>
+        <a href="#" class="cta-button">Comenzar <i class="fas fa-arrow-right"></i></a>
+        
+        <div class="color-palette">
+            <div class="color-circle" style="background-color: var(--blush);"></div>
+            <div class="color-circle" style="background-color: var(--lavender);"></div>
+            <div class="color-circle" style="background-color: var(--mint);"></div>
+            <div class="color-circle" style="background-color: var(--peach);"></div>
+        </div>
     </div>
+
+    <!-- Font Awesome para el ícono -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </body>
 </html>
