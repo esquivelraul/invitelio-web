@@ -1,38 +1,38 @@
+
 // invitaciones-vercel/app/layout.tsx
 
 import type { Metadata } from 'next';
-import Head from 'next/head'; // Importamos Head para las etiquetas link
+// Eliminamos: import Head from 'next/head'; 
 import { ReactNode } from 'react';
 
-// ❗ CRÍTICO: Importación de estilos globales (debe estar en el mismo directorio: app/globals.css) ❗
+// CRÍTICO: Importación de estilos globales
 import './globals.css'; 
 
-// 1. Definición de metadatos (información para SEO y el navegador)
+// 1. Definición de metadatos (Aquí se manejan los links y scripts que van en el <head>)
 export const metadata: Metadata = {
   title: 'Invitelio | Confirmaciones y Catálogo',
   description: 'Invitaciones digitales con estilo y gestión de eventos.',
+  // Links de Google Fonts y Font Awesome se pueden manejar aquí
+  icons: [
+    // Ejemplo de cómo se podrían añadir otros recursos
+  ]
 };
 
 // 2. Componente RootLayout
 export default function RootLayout({
-  children, // Contenido de app/page.tsx, app/catalogo/page.tsx, etc.
+  children,
 }: {
   children: ReactNode;
 }) {
   return (
-    // Estructura HTML principal
+    // Estructura HTML principal (las etiquetas <link> van directamente en el <head>)
     <html lang="es">
-      <Head>
-        {/* Importación de Font Awesome para los íconos de redes sociales */}
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-        
-        {/* Importación de Google Fonts (Playfair Display y Montserrat) */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet" />
-      </Head>
       
-      {/* El body envuelve toda la aplicación */}
+      {/* Los recursos externos como Font Awesome y Google Fonts son manejados por
+        el sistema de metadatos o por la importación global en globals.css.
+        No es necesario el componente <Head> o <Next/Head> aquí.
+      */}
+      
       <body>
         {children}
       </body>
