@@ -1,4 +1,4 @@
-/* css/style.css - Versión Final Unificada */
+/* app/globals.css - Versión Final Unificada */
 
 /* VARIABLES DE DISEÑO */
 :root {
@@ -160,12 +160,12 @@ th {
 }
 
 .btn-danger {
-    background-color: var(--color-no); /* Rojo para Cerrar Sesión */
+    background-color: var(--color-no); 
     color: white;
 }
 
 .btn-success {
-    background-color: var(--color-civil); /* Verde para Descargar XLSX */
+    background-color: var(--color-civil); 
     color: white;
 }
 
@@ -181,7 +181,7 @@ th {
 
 .error-shake {
     animation: shake 0.5s;
-    border: 2px solid red !important; /* Visualmente indica el error */
+    border: 2px solid red !important; 
 }
 
 /* ---------------------------------------------------- */
