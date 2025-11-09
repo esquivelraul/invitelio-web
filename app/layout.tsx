@@ -1,11 +1,13 @@
 // invitaciones-vercel/app/layout.tsx
 
 import type { Metadata } from 'next';
-import Head from 'next/head'; // Necesitas instalar esta librería: npm install next react react-dom @types/react @types/node typescript
+import Head from 'next/head'; // Importamos Head para las etiquetas link
 import { ReactNode } from 'react';
-import '../globals.css'; // Asegúrate de que tus estilos globales estén aquí
 
-// 1. Definición de metadatos (opcional)
+// ❗ CRÍTICO: Importación de estilos globales (debe estar en el mismo directorio: app/globals.css) ❗
+import './globals.css'; 
+
+// 1. Definición de metadatos (información para SEO y el navegador)
 export const metadata: Metadata = {
   title: 'Invitelio | Confirmaciones y Catálogo',
   description: 'Invitaciones digitales con estilo y gestión de eventos.',
@@ -18,6 +20,7 @@ export default function RootLayout({
   children: ReactNode;
 }) {
   return (
+    // Estructura HTML principal
     <html lang="es">
       <Head>
         {/* Importación de Font Awesome para los íconos de redes sociales */}
