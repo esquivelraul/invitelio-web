@@ -3,66 +3,137 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invitelio - Invitaciones Digitales</title>
+    <title>Invitelio - Invitaciones Digitales Elegantes</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Raleway:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            --blush: #FFD1DC;    --lavender: #E6E6FA;
+            --mint: #C8E8E0;     --peach: #FFDAB9;
+            --powder: #B0E0E6;   --ivory: #FFFFF0;
+            --text-color: #6D6875;
+            --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        
         body {
+            font-family: 'Raleway', sans-serif;
             margin: 0;
-            padding: 0;
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            background: #FFF5F7;
-            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, var(--ivory) 0%, var(--powder) 100%);
             text-align: center;
-        }
-        
-        .container {
-            max-width: 800px;
             padding: 20px;
         }
         
-        h1 {
-            color: #D4A5A5;
-            font-size: 4rem;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        .main-container {
+            max-width: 800px;
+            width: 100%;
+            padding: 40px;
+            animation: fadeIn 1s ease-out;
         }
         
-        p {
-            color: #888;
-            font-size: 1.8rem;
-            margin-bottom: 40px;
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3.5rem, 8vw, 5.5rem);
+            color: var(--text-color);
+            margin: 0 0 1.5rem;
+            letter-spacing: 2px;
+            line-height: 1.1;
         }
         
-        .btn {
-            display: inline-block;
-            background: #D4A5A5;
-            color: white;
-            padding: 15px 30px;
+        .tagline {
+            font-size: clamp(1.6rem, 3vw, 2.2rem);
+            color: var(--text-color);
+            margin: 0 auto 3rem;
+            max-width: 700px;
+            line-height: 1.4;
+            font-weight: 300;
+        }
+        
+        .tagline span {
+            font-weight: 400;
+            background: linear-gradient(90deg, var(--blush), var(--text-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            padding: 0 5px;
+        }
+        
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: white;
+            color: var(--text-color);
+            padding: 1.2rem 3rem;
             border-radius: 50px;
-            text-decoration: none;
             font-size: 1.2rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(212, 165, 165, 0.4);
+            text-decoration: none;
+            box-shadow: 0 4px 20px rgba(109, 104, 117, 0.15);
+            border: 1px solid rgba(109, 104, 117, 0.1);
+            margin-top: 1.5rem;
+            transition: var(--transition);
         }
         
-        .btn:hover {
-            background: #C38D8D;
+        .cta-button:hover {
             transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(109, 104, 117, 0.2);
+            background: linear-gradient(90deg, var(--lavender), var(--blush));
+            color: white;
         }
         
-        @media (max-width: 600px) {
-            h1 { font-size: 3rem; }
-            p { font-size: 1.4rem; }
+        .color-palette {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+        
+        .color-circle {
+            width: clamp(40px, 8vw, 50px);
+            height: clamp(40px, 8vw, 50px);
+            border-radius: 50%;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        
+        .color-circle:hover {
+            transform: scale(1.15);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Invitelio</h1>
-        <p>Invitaciones digitales con elegancia y estilo</p>
-        <a href="#" class="btn">Continuar →</a>
+    <div class="main-container">
+        <h1 class="logo">Invitelio</h1>
+        <p class="tagline">Invitaciones digitales con <span>elegancia</span> y <span>estilo</span></p>
+        <a href="catalogo.html" class="cta-button">Comenzar <i class="fas fa-arrow-right"></i></a>
+        
+        <div class="color-palette">
+            <div class="color-circle" style="background-color: var(--blush);"></div>
+            <div class="color-circle" style="background-color: var(--lavender);"></div>
+            <div class="color-circle" style="background-color: var(--mint);"></div>
+            <div class="color-circle" style="background-color: var(--peach);"></div>
+        </div>
     </div>
+
+    <script>
+        // Efecto hover mejorado para botón
+        document.querySelector('.cta-button').addEventListener('mouseenter', function() {
+            this.querySelector('i').style.transform = 'translateX(5px)';
+        });
+        
+        document.querySelector('.cta-button').addEventListener('mouseleave', function() {
+            this.querySelector('i').style.transform = 'translateX(0)';
+        });
+    </script>
 </body>
 </html>

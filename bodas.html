@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diseños para Bodas - Invitelio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Raleway:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --blush: #FFD1DC;
+            --lavender: #E6E6FA;
+            --mint: #C8E8E0;
+            --peach: #FFDAB9;
+            --powder: #B0E0E6;
+            --ivory: #FFFFF0;
+            --text-color: #6D6875;
+            --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        
+        body {
+            font-family: 'Raleway', sans-serif;
+            margin: 0;
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--ivory) 0%, var(--powder) 100%);
+            color: var(--text-color);
+        }
+        
+        /* Header */
+        .header {
+            background: rgba(255, 255, 255, 0.96);
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--text-color);
+            text-decoration: none;
+            letter-spacing: 1px;
+            font-weight: 700;
+        }
+        
+        .nav-container {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+        
+        .nav-menu, .social-menu {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            gap: 1.5rem;
+        }
+        
+        .nav-link, .social-link {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 400;
+            transition: var(--transition);
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .nav-link:hover, .social-link:hover {
+            color: var(--blush);
+        }
+        
+        .social-link i {
+            font-size: 1.1rem;
+        }
+        
+        /* Hero Section */
+        .catalogo-hero {
+            text-align: center;
+            padding: 5rem 2rem 3rem;
+        }
+        
+        .catalogo-hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            margin-bottom: 1.2rem;
+            letter-spacing: 1.5px;
+        }
+        
+        .catalogo-hero p {
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+            color: rgba(109, 104, 117, 0.9);
+            line-height: 1.6;
+        }
+        
+        /* Grid de diseños */
+        .disenos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2.5rem;
+            padding: 2rem;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+        
+        .diseño-card {
+            background: rgba(255, 255, 255, 0.92);
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+        
+        .diseño-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+        }
+        
+        .diseño-img-container {
+            height: 280px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .diseño-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+        
+        .diseño-card:hover .diseño-img {
+            transform: scale(1.05);
+        }
+        
+        .diseño-info {
+            padding: 1.8rem;
+        }
+        
+        .diseño-info h3 {
+            font-family: 'Playfair Display', serif;
+            margin: 0 0 0.8rem;
+            font-size: 1.5rem;
+            color: var(--text-color);
+            letter-spacing: 0.5px;
+        }
+        
+        .diseño-info p {
+            margin: 0 0 1.8rem;
+            color: rgba(109, 104, 117, 0.85);
+            font-size: 0.96rem;
+            line-height: 1.6;
+        }
+        
+        /* Botón */
+        .btn-diseño {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: white;
+            color: var(--text-color);
+            padding: 0.85rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 500;
+            box-shadow: 0 4px 16px rgba(109, 104, 117, 0.12);
+            border: 1px solid rgba(109, 104, 117, 0.1);
+            transition: var(--transition);
+            font-size: 0.95rem;
+        }
+        
+        .btn-diseño:hover {
+            background: linear-gradient(135deg, var(--blush), var(--lavender));
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 22px rgba(230, 57, 70, 0.18);
+        }
+        
+        /* Footer */
+        .footer {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 2rem;
+            text-align: center;
+            margin-top: 3rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                padding: 1rem;
+                gap: 1rem;
+            }
+            
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .nav-menu, .social-menu {
+                gap: 1rem;
+            }
+            
+            .disenos-grid {
+                grid-template-columns: 1fr;
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header con menú completo -->
+    <header class="header">
+        <a href="index.html" class="logo">Invitelio</a>
+        
+        <div class="nav-container">
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Inicio</a></li>
+                <li><a href="catalogo.html" class="nav-link">Catálogo</a></li>
+                <li><a href="#" class="nav-link">Contacto</a></li>
+            </ul>
+            
+            <ul class="social-menu">
+                <li>
+                    <a href="https://www.instagram.com/xhelio_artstudio" class="social-link" aria-label="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.facebook.com/profile.php?id=61565684439943" class="social-link" aria-label="Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="social-link" aria-label="Pinterest">
+                        <i class="fab fa-pinterest-p"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="social-link" aria-label="WhatsApp">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="catalogo-hero">
+        <h1>Diseños para Bodas</h1>
+        <p>Selecciona el diseño perfecto para tu invitación de boda. Cada diseño puede ser personalizado completamente.</p>
+    </section>
+    
+    <!-- Grid de diseños -->
+    <div class="disenos-grid">
+        <!-- Diseño 1 -->
+        <div class="diseño-card">
+            <div class="diseño-img-container">
+                <img src="images/boda-diseno1.jpg" alt="Elegancia Dorada" class="diseño-img">
+            </div>
+            <div class="diseño-info">
+                <h3>Elegancia Dorada</h3>
+                <p>Invitación con detalles dorados y tipografía clásica, ideal para bodas formales en salones elegantes.</p>
+                <a href="form_elegancia_dorada.html" class="btn-diseño">Personalizar <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+        
+        <!-- Diseño 2 -->
+        <div class="diseño-card">
+            <div class="diseño-img-container">
+                <img src="images/boda-diseno2.jpg" alt="Encanto Vintage" class="diseño-img">
+            </div>
+            <div class="diseño-info">
+                <h3>Encanto Vintage</h3>
+                <p>Inspiración retro con bordes ornamentados y papel texturizado para bodas con estilo nostálgico.</p>
+                <a href="#" class="btn-diseño">Personalizar <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+        
+        <!-- Diseño 3 -->
+        <div class="diseño-card">
+            <div class="diseño-img-container">
+                <img src="images/boda-diseno3.jpg" alt="Líneas Puras" class="diseño-img">
+            </div>
+            <div class="diseño-info">
+                <h3>Líneas Puras</h3>
+                <p>Minimalismo elegante con espacio para tu fotografía y detalles esenciales en tipografía moderna.</p>
+                <a href="#" class="btn-diseño">Personalizar <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+        
+        <!-- Diseño 4 -->
+        <div class="diseño-card">
+            <div class="diseño-img-container">
+                <img src="images/boda-diseno4.jpg" alt="Toque Romántico" class="diseño-img">
+            </div>
+            <div class="diseño-info">
+                <h3>Toque Romántico</h3>
+                <p>Flores delicadas y colores suaves para una boda llena de romanticismo y ternura.</p>
+                <a href="#" class="btn-diseño">Personalizar <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+        
+        <!-- Diseño 5 -->
+        <div class="diseño-card">
+            <div class="diseño-img-container">
+                <img src="images/boda-diseno5.jpg" alt="Lujo Moderno" class="diseño-img">
+            </div>
+            <div class="diseño-info">
+                <h3>Lujo Moderno</h3>
+                <p>Acabados de lujo con relieve y detalles metálicos para una boda sofisticada y contemporánea.</p>
+                <a href="#" class="btn-diseño">Personalizar <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <p>© 2025 Invitelio. Todos los derechos reservados.</p>
+    </footer>
+</body>
+</html>

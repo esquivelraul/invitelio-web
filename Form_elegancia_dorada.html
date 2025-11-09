@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personaliza tu Invitación - Invitelio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Agregamos la API de Google Maps -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAEwWbwbkp6KsgigMVj44NQswfXGosMdLY&libraries=places&callback=initAutocomplete" async defer></script>
+    <style>
+        :root {
+            --blush: #FFD1DC;
+            --lavender: #E6E6FA;
+            --mint: #C8E8E0;
+            --peach: #FFDAB9;
+            --powder: #B0E0E6;
+            --ivory: #FFFFF0;
+            --text-color: #6D6875;
+            --gold: #D4AF37;
+            --transition: all 0.3s ease;
+        }
+        
+        body {
+            font-family: 'Raleway', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--ivory);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* Header - Copiado de bodas.html */
+        .header {
+            background: rgba(255, 255, 255, 0.96);
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--text-color);
+            text-decoration: none;
+            letter-spacing: 1px;
+            font-weight: 700;
+        }
+        
+        .nav-container {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+        
+        .nav-menu, .social-menu {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            gap: 1.5rem;
+        }
+        
+        .nav-link, .social-link {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 400;
+            transition: var(--transition);
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .nav-link:hover, .social-link:hover {
+            color: var(--blush);
+        }
+        
+        .social-link i {
+            font-size: 1.1rem;
+        }
+
+        /* Contenedor principal */
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+        
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--text-color);
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--gold);
+            font-size: 2.5rem;
+        }
+        
+        .form-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        input[type="text"],
+        input[type="time"],
+        input[type="date"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: 'Raleway', sans-serif;
+            transition: var(--transition);
+            box-sizing: border-box;
+        }
+        
+        input[type="text"]:focus,
+        input[type="time"]:focus,
+        input[type="date"]:focus,
+        textarea:focus,
+        select:focus {
+            border-color: var(--gold);
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
+        }
+        
+        .date-picker {
+            position: relative;
+        }
+        
+        .date-picker input {
+            padding-right: 2.5rem;
+        }
+        
+        .date-picker i {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gold);
+        }
+        
+        .couple-names {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .couple-names .form-group {
+            flex: 1;
+        }
+        
+        .other-dresscode {
+            margin-top: 0.5rem;
+            display: none;
+        }
+        
+        .map-container {
+            height: 200px;
+            background-color: #f5f5f5;
+            border-radius: 5px;
+            margin-top: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #777;
+            border: 1px dashed #ccc;
+        }
+        
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 5px;
+        }
+        
+        .btn {
+            background: var(--gold);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            font-family: 'Raleway', sans-serif;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-block;
+            text-decoration: none;
+        }
+        
+        .btn:hover {
+            background: var(--text-color);
+            transform: translateY(-2px);
+        }
+        
+        .btn-block {
+            display: block;
+            width: 100%;
+            text-align: center;
+        }
+        
+        .preview-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-top: 2rem;
+            display: none;
+        }
+        
+        .preview-item {
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .preview-label {
+            font-weight: 500;
+            color: var(--gold);
+            display: inline-block;
+            min-width: 180px;
+        }
+        
+        .location-group {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .location-group .form-group {
+            flex: 1;
+        }
+        
+        /* Estilos para mensajes de error */
+        .error-message {
+            color: #d32f2f;
+            font-size: 0.8rem;
+            margin-top: 0.3rem;
+            display: none;
+        }
+        
+        input.error,
+        select.error,
+        textarea.error {
+            border-color: #d32f2f;
+        }
+        
+        /* Animación de carga */
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 1rem 0;
+        }
+        
+        .loading-spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top: 4px solid var(--gold);
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Modal de confirmación */
+        #customConfirmation {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Raleway', sans-serif;
+        }
+        
+        @media (max-width: 768px) {
+            .couple-names, .location-group {
+                flex-direction: column;
+            }
+            
+            .container {
+                padding: 1rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .preview-label {
+                min-width: 100%;
+                margin-bottom: 0.5rem;
+            }
+
+            /* Header responsive */
+            .header {
+                flex-direction: column;
+                padding: 1rem;
+                gap: 1rem;
+            }
+            
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .nav-menu, .social-menu {
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header consistente con bodas.html -->
+    <header class="header">
+        <a href="index.html" class="logo">Invitelio</a>
+        
+        <div class="nav-container">
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Inicio</a></li>
+                <li><a href="catalogo.html" class="nav-link">Catálogo</a></li>
+                <li><a href="#" class="nav-link">Contacto</a></li>
+            </ul>
+            
+            <ul class="social-menu">
+                <li>
+                    <a href="https://www.instagram.com/xhelio_artstudio" class="social-link" aria-label="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.facebook.com/profile.php?id=61565684439943" class="social-link" aria-label="Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="social-link" aria-label="Pinterest">
+                        <i class="fab fa-pinterest-p"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="social-link" aria-label="WhatsApp">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </header>
+
+    <div class="container">
+        <h1>Personaliza tu Invitación</h1>
+        
+        <form id="weddingForm">
+            <div class="form-section">
+                <h2>Información de los Novios</h2>
+                
+                <div class="couple-names">
+                    <div class="form-group">
+                        <label for="brideName">Nombre de la Novia</label>
+                        <input type="text" id="brideName" placeholder="Escribe el nombre completo" required>
+                        <div id="brideNameError" class="error-message">Por favor ingresa el nombre de la novia</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="groomName">Nombre del Novio</label>
+                        <input type="text" id="groomName" placeholder="Escribe el nombre completo" required>
+                        <div id="groomNameError" class="error-message">Por favor ingresa el nombre del novio</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-section">
+                <h2>Detalles del Evento</h2>
+                
+                <div class="form-group date-picker">
+                    <label for="weddingDate">Fecha de la Boda</label>
+                    <input type="date" id="weddingDate" required>
+                    <i class="fas fa-calendar-alt"></i>
+                    <div id="weddingDateError" class="error-message">Por favor selecciona una fecha válida</div>
+                </div>
+                
+                <div class="location-group">
+                    <div class="form-group">
+                        <label for="ceremonyLocation">Lugar de la Ceremonia/Misa</label>
+                        <input type="text" id="ceremonyLocation" placeholder="Nombre del lugar" class="location-input" required>
+                        <input type="text" id="ceremonyAddress" placeholder="Dirección completa" class="address-input" style="margin-top: 0.5rem;" required>
+                        <div id="ceremonyLocationError" class="error-message">Por favor ingresa el lugar de la ceremonia</div>
+                        <div id="ceremonyAddressError" class="error-message">Por favor ingresa la dirección de la ceremonia</div>
+                        <div class="map-container" id="ceremonyMap">
+                            <i class="fas fa-map-marker-alt" style="font-size: 2rem; margin-right: 0.5rem;"></i>
+                            <span>Mapa de la ceremonia</span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="receptionLocation">Lugar de la Recepción</label>
+                        <input type="text" id="receptionLocation" placeholder="Nombre del lugar" class="location-input" required>
+                        <input type="text" id="receptionAddress" placeholder="Dirección completa" class="address-input" style="margin-top: 0.5rem;" required>
+                        <div id="receptionLocationError" class="error-message">Por favor ingresa el lugar de la recepción</div>
+                        <div id="receptionAddressError" class="error-message">Por favor ingresa la dirección de la recepción</div>
+                        <div class="map-container" id="receptionMap">
+                            <i class="fas fa-map-marker-alt" style="font-size: 2rem; margin-right: 0.5rem;"></i>
+                            <span>Mapa de la recepción</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="ceremonyTime">Hora de la Ceremonia/Misa (formato 24h, ej. 14:30)</label>
+                    <input type="text" id="ceremonyTime" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]" placeholder="HH:MM" required>
+                    <div id="ceremonyTimeError" class="error-message">Por favor ingresa una hora válida en formato HH:MM (ej. 14:30)</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="receptionTime">Hora de la Recepción (formato 24h, ej. 19:00)</label>
+                    <input type="text" id="receptionTime" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]" placeholder="HH:MM" required>
+                    <div id="receptionTimeError" class="error-message">Por favor ingresa una hora válida en formato HH:MM (ej. 19:00)</div>
+                </div>
+            </div>
+            
+            <div class="form-section">
+                <h2>Detalles Adicionales</h2>
+                
+                <div class="form-group">
+                    <label for="dressCode">Código de Vestimenta</label>
+                    <select id="dressCode" required>
+                        <option value="" disabled selected>Selecciona una opción</option>
+                        <option value="Formal">Formal</option>
+                        <option value="Semiformal">Semiformal</option>
+                        <option value="Casual">Casual</option>
+                        <option value="Informal">Informal</option>
+                        <option value="Traje de etiqueta">Traje de etiqueta</option>
+                        <option value="Casual Elegante">Casual Elegante</option>
+                        <option value="Playero">Playero</option>
+                        <option value="Deportivo">Deportivo</option>
+                        <option value="Otro">Otro (especificar)</option>
+                    </select>
+                    <div id="dressCodeError" class="error-message">Por favor selecciona un código de vestimenta</div>
+                    
+                    <div class="other-dresscode" id="otherDressCodeContainer">
+                        <label for="otherDressCode">Especificar código de vestimenta</label>
+                        <input type="text" id="otherDressCode" placeholder="Describe el código de vestimenta">
+                        <div id="otherDressCodeError" class="error-message">Por favor ingresa un código de vestimenta</div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="customMessage">Mensaje para los Invitados (opcional)</label>
+                    <textarea id="customMessage" rows="4" placeholder="Escribe un mensaje especial para tus invitados"></textarea>
+                </div>
+            </div>
+            
+            <button type="submit" class="btn btn-block">Ver Resumen</button>
+            <div class="loading" id="formLoading">
+                <div class="loading-spinner"></div>
+                <p>Procesando tu información...</p>
+            </div>
+        </form>
+        
+        <div class="preview-section" id="previewSection">
+            <h2>Resumen de tu Invitación</h2>
+            
+            <div class="preview-item">
+                <span class="preview-label">Nombres:</span>
+                <span id="previewNames"></span>
+            </div>
+            
+            <div class="preview-item">
+                <span class="preview-label">Fecha de la Boda:</span>
+                <span id="previewDate"></span>
+            </div>
+            
+            <div class="preview-item">
+                <span class="preview-label">Lugar de la Ceremonia:</span>
+                <span id="previewCeremonyLocation"></span>
+                <div id="previewCeremonyAddress" style="margin-top: 0.5rem; color: #666;"></div>
+            </div>
+            
+            <div class="preview-item">
+                <span class="preview-label">Hora de la Ceremonia:</span>
+                <span id="previewCeremonyTime"></span>
+            </div>
+            
+            <div class="preview-item">
+                <span class="preview-label">Lugar de la Recepción:</span>
+                <span id="previewReceptionLocation"></span>
+                <div id="previewReceptionAddress" style="margin-top: 0.5rem; color: #666;"></div>
+            </div>
+            
+            <div class="preview-item">
+                <span class="preview-label">Hora de la Recepción:</span>
+                <span id="previewReceptionTime"></span>
+            </div>
+            
+            <div class="preview-item">
+                <span class="preview-label">Código de Vestimenta:</span>
+                <span id="previewDressCode"></span>
+            </div>
+            
+            <div class="preview-item" id="previewMessageContainer" style="display: none;">
+                <span class="preview-label">Mensaje para Invitados:</span>
+                <span id="previewMessage"></span>
+            </div>
+            
+            <div class="form-group" style="margin-top: 2rem; display: flex; gap: 1rem;">
+                <button type="button" class="btn" id="editBtn" style="flex: 1;">Editar Información</button>
+                <button type="button" class="btn" id="confirmBtn" style="flex: 1; background: var(--text-color);">Confirmar y Continuar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de confirmación -->
+    <div id="customConfirmation">
+        <div style="background:white; padding:2rem; border-radius:10px; max-width:500px; width:90%; text-align:center; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+            <i class="fas fa-check-circle" style="font-size:3rem; color:var(--gold); margin-bottom:1rem;"></i>
+            <h3 style="font-family:'Playfair Display'; color:var(--text-color); margin-bottom:1rem;">¡Información confirmada con éxito!</h3>
+            
+            <div style="text-align:left; margin:1.5rem 0; padding:1rem; background:var(--ivory); border-radius:5px;">
+                <p style="margin:0.5rem 0;"><strong>Lugar de la Ceremonia:</strong></p>
+                <p style="margin:0 0 0.5rem 1rem;" id="confirmationCeremony"></p>
+                
+                <p style="margin:0.5rem 0;"><strong>Dirección:</strong></p>
+                <p style="margin:0 0 0.5rem 1rem;" id="confirmationAddress"></p>
+
+                <p style="margin:0.5rem 0;"><strong>Fecha:</strong></p>
+                <p style="margin:0 0 0.5rem 1rem;" id="confirmationDate"></p>
+            </div>
+            
+            <p style="margin-bottom:1.5rem;">Procederemos a generar tu invitación personalizada.</p>
+            
+            <button id="closeConfirmationBtn" class="btn" style="background:var(--gold); color:white; border:none; padding:0.8rem 1.5rem; border-radius:5px; cursor:pointer; transition:all 0.3s ease;">
+                Cerrar
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Variables globales para los mapas
+        let ceremonyMap, receptionMap;
+        let ceremonyMarker, receptionMarker;
+        let autocomplete;
+
+        // Función para inicializar el autocompletado de Google Maps
+        function initAutocomplete() {
+            // Configurar autocompletado para los campos de ubicación
+            const ceremonyLocationInput = document.getElementById('ceremonyLocation');
+            const receptionLocationInput = document.getElementById('receptionLocation');
+            
+            // Crear autocompletado para ceremonia
+            const ceremonyAutocomplete = new google.maps.places.Autocomplete(ceremonyLocationInput, {
+                types: ['establishment'],
+                fields: ['name', 'formatted_address', 'geometry']
+            });
+            
+            // Crear autocompletado para recepción
+            const receptionAutocomplete = new google.maps.places.Autocomplete(receptionLocationInput, {
+                types: ['establishment'],
+                fields: ['name', 'formatted_address', 'geometry']
+            });
+            
+            // Manejadores para ceremonia
+            ceremonyAutocomplete.addListener('place_changed', function() {
+                const place = ceremonyAutocomplete.getPlace();
+                if (!place.geometry) {
+                    return;
+                }
+                
+                document.getElementById('ceremonyAddress').value = place.formatted_address;
+                showMap('ceremonyMap', place.geometry.location, place.name);
+            });
+            
+            // Manejadores para recepción
+            receptionAutocomplete.addListener('place_changed', function() {
+                const place = receptionAutocomplete.getPlace();
+                if (!place.geometry) {
+                    return;
+                }
+                
+                document.getElementById('receptionAddress').value = place.formatted_address;
+                showMap('receptionMap', place.geometry.location, place.name);
+            });
+            
+            // Inicializar mapas vacíos
+            initMap('ceremonyMap');
+            initMap('receptionMap');
+        }
+        
+        // Función para inicializar un mapa vacío
+        function initMap(mapId) {
+            const mapContainer = document.getElementById(mapId);
+            const map = new google.maps.Map(mapContainer, {
+                center: {lat: 19.4326, lng: -99.1332}, // Centro en CDMX
+                zoom: 15
+            });
+            
+            if (mapId === 'ceremonyMap') {
+                ceremonyMap = map;
+            } else {
+                receptionMap = map;
+            }
+        }
+        
+        // Función para mostrar un mapa con marcador
+        function showMap(mapId, location, title) {
+            const mapContainer = document.getElementById(mapId);
+            mapContainer.innerHTML = '<iframe width="100%" height="100%" frameborder="0" style="border:0" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAEwWbwbkp6KsgigMVj44NQswfXGosMdLY&q=' + 
+                                    encodeURIComponent(title + ' ' + location.lat() + ',' + location.lng()) + 
+                                    '&zoom=15"></iframe>';
+        }
+        
+        // Mostrar/ocultar campo "Otro" para código de vestimenta
+        const dressCodeSelect = document.getElementById('dressCode');
+        const otherDressCodeContainer = document.getElementById('otherDressCodeContainer');
+        
+        dressCodeSelect.addEventListener('change', function() {
+            if (this.value === 'Otro') {
+                otherDressCodeContainer.style.display = 'block';
+                document.getElementById('otherDressCode').required = true;
+            } else {
+                otherDressCodeContainer.style.display = 'none';
+                document.getElementById('otherDressCode').required = false;
+                document.getElementById('otherDressCode').value = '';
+            }
+        });
+        
+        // Función para validar el formato de hora
+        function isValidTime(timeString) {
+            if (!timeString) return false;
+            return /^([01]?[0-9]|2[0-3]):[0-5][0-9]$/.test(timeString);
+        }
+
+        // Función para validar todos los campos del formulario
+        function validateForm() {
+            let isValid = true;
+            
+            // Validar nombres
+            if (!document.getElementById('brideName').value) {
+                document.getElementById('brideName').classList.add('error');
+                document.getElementById('brideNameError').style.display = 'block';
+                isValid = false;
+            }
+            
+            if (!document.getElementById('groomName').value) {
+                document.getElementById('groomName').classList.add('error');
+                document.getElementById('groomNameError').style.display = 'block';
+                isValid = false;
+            }
+            
+            // Validar fecha
+            if (!document.getElementById('weddingDate').value) {
+                document.getElementById('weddingDate').classList.add('error');
+                document.getElementById('weddingDateError').style.display = 'block';
+                isValid = false;
+            }
+            
+            // Validar lugares
+            if (!document.getElementById('ceremonyLocation').value) {
+                document.getElementById('ceremonyLocation').classList.add('error');
+                document.getElementById('ceremonyLocationError').style.display = 'block';
+                isValid = false;
+            }
+            
+            if (!document.getElementById('ceremonyAddress').value) {
+                document.getElementById('ceremonyAddress').classList.add('error');
+                document.getElementById('ceremonyAddressError').style.display = 'block';
+                isValid = false;
+            }
+            
+            if (!document.getElementById('receptionLocation').value) {
+                document.getElementById('receptionLocation').classList.add('error');
+                document.getElementById('receptionLocationError').style.display = 'block';
+                isValid = false;
+            }
+            
+            if (!document.getElementById('receptionAddress').value) {
+                document.getElementById('receptionAddress').classList.add('error');
+                document.getElementById('receptionAddressError').style.display = 'block';
+                isValid = false;
+            }
+            
+            // Validar horas
+            const ceremonyTime = document.getElementById('ceremonyTime').value;
+            if (!isValidTime(ceremonyTime)) {
+                document.getElementById('ceremonyTime').classList.add('error');
+                document.getElementById('ceremonyTimeError').style.display = 'block';
+                isValid = false;
+            }
+            
+            const receptionTime = document.getElementById('receptionTime').value;
+            if (!isValidTime(receptionTime)) {
+                document.getElementById('receptionTime').classList.add('error');
+                document.getElementById('receptionTimeError').style.display = 'block';
+                isValid = false;
+            }
+            
+            // Validar código de vestimenta
+            const dressCode = dressCodeSelect.value;
+            if (!dressCode) {
+                document.getElementById('dressCode').classList.add('error');
+                document.getElementById('dressCodeError').style.display = 'block';
+                isValid = false;
+            } else if (dressCode === 'Otro' && !document.getElementById('otherDressCode').value) {
+                document.getElementById('otherDressCode').classList.add('error');
+                document.getElementById('otherDressCodeError').style.display = 'block';
+                isValid = false;
+            }
+            
+            return isValid;
+        }
+
+        // Manejar el envío del formulario
+        const weddingForm = document.getElementById('weddingForm');
+        const previewSection = document.getElementById('previewSection');
+        const formLoading = document.getElementById('formLoading');
+        
+        weddingForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Resetear errores
+            document.querySelectorAll('.error-message').forEach(el => el.style.display = 'none');
+            document.querySelectorAll('.error').forEach(el => el.classList.remove('error'));
+            
+            // Mostrar loading
+            formLoading.style.display = 'block';
+            
+            // Usar setTimeout para simular procesamiento y permitir que la UI se actualice
+            setTimeout(() => {
+                // Validar formulario
+                if (!validateForm()) {
+                    formLoading.style.display = 'none';
+                    return;
+                }
+                
+                // Obtener valores del formulario
+                const brideName = document.getElementById('brideName').value;
+                const groomName = document.getElementById('groomName').value;
+                const weddingDate = formatDate(document.getElementById('weddingDate').value);
+                const ceremonyLocation = document.getElementById('ceremonyLocation').value;
+                const ceremonyAddress = document.getElementById('ceremonyAddress').value;
+                const receptionLocation = document.getElementById('receptionLocation').value;
+                const receptionAddress = document.getElementById('receptionAddress').value;
+                const ceremonyTime = document.getElementById('ceremonyTime').value;
+                const receptionTime = document.getElementById('receptionTime').value;
+                
+                let dressCode = dressCodeSelect.value;
+                if (dressCode === 'Otro') {
+                    dressCode = document.getElementById('otherDressCode').value;
+                }
+                
+                const customMessage = document.getElementById('customMessage').value;
+                
+                // Mostrar valores en el resumen
+                document.getElementById('previewNames').textContent = `${brideName} & ${groomName}`;
+                document.getElementById('previewDate').textContent = weddingDate;
+                document.getElementById('previewCeremonyLocation').textContent = ceremonyLocation;
+                document.getElementById('previewCeremonyAddress').textContent = ceremonyAddress;
+                document.getElementById('previewCeremonyTime').textContent = formatTime(ceremonyTime);
+                document.getElementById('previewReceptionLocation').textContent = receptionLocation;
+                document.getElementById('previewReceptionAddress').textContent = receptionAddress;
+                document.getElementById('previewReceptionTime').textContent = formatTime(receptionTime);
+                document.getElementById('previewDressCode').textContent = dressCode;
+                
+                if (customMessage) {
+                    document.getElementById('previewMessage').textContent = customMessage;
+                    document.getElementById('previewMessageContainer').style.display = 'block';
+                } else {
+                    document.getElementById('previewMessageContainer').style.display = 'none';
+                }
+                
+                // Ocultar loading y mostrar sección de resumen
+                formLoading.style.display = 'none';
+                previewSection.style.display = 'block';
+                
+                // Desplazarse suavemente a la sección de resumen
+                window.scrollTo({
+                    top: previewSection.offsetTop,
+                    behavior: 'smooth'
+                });
+            }, 500);
+        });
+        
+        // Función para formatear la fecha
+        function formatDate(dateString) {
+            if (!dateString) return '';
+            
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            return new Date(dateString).toLocaleDateString('es-ES', options);
+        }
+        
+        // Función para formatear la hora
+        function formatTime(timeString) {
+            if (!timeString) return '';
+            
+            const [hours, minutes] = timeString.split(':');
+            return `${hours}:${minutes} hrs`;
+        }
+        
+        // Botón de editar
+        document.getElementById('editBtn').addEventListener('click', function() {
+            previewSection.style.display = 'none';
+        });
+        
+        // Botón de confirmar
+        document.getElementById('confirmBtn').addEventListener('click', function() {
+            // Obtener los datos del formulario
+            const ceremonyLocation = document.getElementById('ceremonyLocation').value;
+            const ceremonyAddress = document.getElementById('ceremonyAddress').value;
+            const weddingDate = formatDate(document.getElementById('weddingDate').value);
+            
+            // Mostrar los datos en la confirmación
+            document.getElementById('confirmationCeremony').textContent = ceremonyLocation;
+            document.getElementById('confirmationAddress').textContent = ceremonyAddress;
+            document.getElementById('confirmationDate').textContent = weddingDate;
+            
+            // Mostrar el modal de confirmación
+            document.getElementById('customConfirmation').style.display = 'flex';
+            
+            // Ocultar el modal al hacer clic en Cerrar
+            document.getElementById('closeConfirmationBtn').addEventListener('click', function() {
+                document.getElementById('customConfirmation').style.display = 'none';
+                
+                // Aquí puedes agregar redirección si es necesario
+                // window.location.href = 'siguiente-paso.html';
+            });
+        });
+        
+        // Inicializar el campo de fecha con la fecha actual
+        document.getElementById('weddingDate').valueAsDate = new Date();
+        
+        // Validación en tiempo real para los campos de hora
+        document.getElementById('ceremonyTime').addEventListener('input', function() {
+            if (!isValidTime(this.value)) {
+                this.classList.add('error');
+                document.getElementById('ceremonyTimeError').style.display = 'block';
+            } else {
+                this.classList.remove('error');
+                document.getElementById('ceremonyTimeError').style.display = 'none';
+            }
+        });
+        
+        document.getElementById('receptionTime').addEventListener('input', function() {
+            if (!isValidTime(this.value)) {
+                this.classList.add('error');
+                document.getElementById('receptionTimeError').style.display = 'block';
+            } else {
+                this.classList.remove('error');
+                document.getElementById('receptionTimeError').style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
