@@ -1,9 +1,11 @@
 // invitaciones-vercel/app/page.tsx
 
 import Link from 'next/link';
+// Importaciones críticas: La ruta relativa es UN nivel arriba de 'app'
 import Header from '../components/Header.tsx'; 
 import Footer from '../components/Footer.tsx'; 
 
+// Componente principal de la página Raíz (Server Component)
 export default function HomePage() {
     return (
         <>
