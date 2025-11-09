@@ -1,37 +1,33 @@
-
 // invitaciones-vercel/app/layout.tsx
 
 import type { Metadata } from 'next';
-// Eliminamos: import Head from 'next/head'; 
 import { ReactNode } from 'react';
-
-// CRÍTICO: Importación de estilos globales
+import NextHead from 'next/head'; // Usaremos Next/Head para la inyección de fuentes
 import './globals.css'; 
 
-// 1. Definición de metadatos (Aquí se manejan los links y scripts que van en el <head>)
+// Definición de metadatos (para el <title>)
 export const metadata: Metadata = {
   title: 'Invitelio | Confirmaciones y Catálogo',
   description: 'Invitaciones digitales con estilo y gestión de eventos.',
-  // Links de Google Fonts y Font Awesome se pueden manejar aquí
-  icons: [
-    // Ejemplo de cómo se podrían añadir otros recursos
-  ]
 };
 
-// 2. Componente RootLayout
 export default function RootLayout({
   children,
 }: {
   children: ReactNode;
 }) {
   return (
-    // Estructura HTML principal (las etiquetas <link> van directamente en el <head>)
     <html lang="es">
-      
-      {/* Los recursos externos como Font Awesome y Google Fonts son manejados por
-        el sistema de metadatos o por la importación global en globals.css.
-        No es necesario el componente <Head> o <Next/Head> aquí.
-      */}
+      {/* ❗ USAMOS NEXT/HEAD EN LUGAR DE LA ESTRUCTURA HTML DIRECTA ❗ */}
+      <NextHead>
+        {/* Importación de Font Awesome para los íconos de redes sociales */}
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+        
+        {/* Importación de Google Fonts */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet" />
+      </NextHead>
       
       <body>
         {children}
