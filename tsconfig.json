@@ -20,7 +20,12 @@
       {
         "name": "next"
       }
-    ]
+    ],
+    // 💡 CORRECCIÓN CRÍTICA: ESTAS LÍNEAS ACTIVAN EL ALIAS @/
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./*"]
+    }
   },
   "include": [
     "next-env.d.ts",

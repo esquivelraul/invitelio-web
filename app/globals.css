@@ -1,6 +1,17 @@
-/* app/globals.css - Versión Final Unificada */
+/* app/globals.css - Versión Final Integrada */
 
-/* VARIABLES DE DISEÑO */
+/* ---------------------------------------------------- */
+/* DIRECTIVAS CRÍTICAS DE TAILWIND CSS */
+/* ---------------------------------------------------- */
+/* Estas tres líneas deben ir al principio para que Next.js las compile */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---------------------------------------------------- */
+/* VARIABLES DE DISEÑO Y CONFIGURACIÓN GLOBAL */
+/* ---------------------------------------------------- */
+
 :root {
     --text-color: #6D6875;
     --blush: #e0a3ae; 
@@ -25,6 +36,7 @@ body {
     font-family: 'Montserrat', sans-serif;
     margin: 0;
     min-height: 100vh;
+    /* Fondo degradado */
     background: linear-gradient(135deg, var(--ivory) 0%, var(--powder) 100%);
     color: var(--text-color);
     line-height: 1.6;
@@ -71,7 +83,7 @@ h1, h2, h3 {
     gap: 2rem;
 }
 
-.nav-menu, .social-menu {
+.nav-menu ul, .social-menu ul {
     display: flex;
     list-style: none;
     margin: 0;
