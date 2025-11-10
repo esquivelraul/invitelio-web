@@ -1,15 +1,19 @@
-// app/login/page.tsx
+// invitaciones-vercel/app/login/page.tsx
 
-'use client'; // 👈 CRÍTICO: Debe ser un Client Component para usar hooks de estado y router
+'use client'; 
 
 import { useState, FormEvent, useEffect } from 'react';
 import { useRouter } from 'next/navigation'; 
 import Link from 'next/link';
 
-// 💡 CORRECCIÓN CRÍTICA DE RUTA: Usamos el alias estándar @/ que apunta a la raíz
+// 💡 CORRECCIÓN DE RUTA CRÍTICA: Subir dos niveles (../..) para acceder a /components/
+import Header from '../../components/Header'; 
+import Footer from '../../components/Footer'; 
+
+// Importar el cliente Supabase (usando el alias estándar @/ que apunta a la raíz)
 import { supabase } from '@/lib/supabaseClient'; 
 
-// 2. Componente de la Página de Login
+
 export default function LoginPage() {
     
     // Estado de React para los campos del formulario y mensajes
@@ -26,10 +30,10 @@ export default function LoginPage() {
             const { data: { session } } = await supabase.auth.getSession();
             
             if (session) {
-                // Si hay sesión activa, redirigir al dashboard
+                // Redirige a /novios si ya está logueado
                 router.replace('/novios'); 
             } else {
-                setIsLoading(false); // Mostrar formulario
+                setIsLoading(false); // Listo para mostrar el formulario
             }
         };
         checkSession();
@@ -37,11 +41,10 @@ export default function LoginPage() {
 
 
     // 4. Manejador de Envío de Formulario
-    const handleLogin = async (e: FormEvent) => {
+    const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
         setMessage('Iniciando sesión...'); 
         
-        // Deshabilitar botón para evitar envíos múltiples
         const loginButton = document.getElementById('login-button') as HTMLButtonElement;
         if(loginButton) loginButton.disabled = true;
 
@@ -53,7 +56,7 @@ export default function LoginPage() {
         if (error) {
             setMessage(`Error de login: ${error.message}`);
             console.error('Error de login:', error);
-            if(loginButton) loginButton.disabled = false; // Habilitar botón si hay error
+            if(loginButton) loginButton.disabled = false;
             return;
         }
 
@@ -65,7 +68,7 @@ export default function LoginPage() {
     // Muestra un mensaje de carga mientras se verifica la sesión
     if (isLoading) {
         return (
-            <div className="flex justify-center items-center min-h-[80vh] text-center p-10">
+            <div className="flex justify-center items-center min-h-screen">
                 <p>Verificando sesión. Por favor, espera...</p>
             </div>
         );
@@ -73,56 +76,61 @@ export default function LoginPage() {
 
     // 5. Renderizado (JSX)
     return (
-        <main className="container" style={{ maxWidth: '400px', margin: '100px auto' }}>
-            <h1 style={{ textAlign: 'center' }}>Acceso de Novios</h1>
+        <>
+            <Header /> {/* Muestra la navegación */}
             
-            <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
-                
-                {/* Input de Email */}
-                <input 
-                    type="email" 
-                    id="email" 
-                    placeholder="Email" 
-                    required
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)} 
-                    style={{ padding: '10px', border: '1px solid #ccc', borderRadius: '5px' }}
-                />
-                
-                {/* Input de Contraseña */}
-                <input 
-                    type="password" 
-                    id="password" 
-                    placeholder="Contraseña" 
-                    required
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    style={{ padding: '10px', border: '1px solid #ccc', borderRadius: '5px' }}
-                />
-                
-                {/* Botón de Submit */}
-                <button 
-                    type="submit" 
-                    id="login-button" 
-                    style={{ padding: '12px', backgroundColor: '#b8860b', color: 'white', border: 'none', borderRadius: '5px', cursor: 'pointer' }}
-                >
-                    Iniciar Sesión
-                </button>
-            </form>
+            <div className="flex justify-center items-center min-h-[80vh] bg-gray-50 p-4">
+                <main className="container" style={{ maxWidth: '400px', margin: 'auto' }}>
+                    <h1 style={{ textAlign: 'center' }}>Acceso de Novios</h1>
+                    
+                    <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+                        
+                        <input 
+                            type="email" 
+                            id="email" 
+                            placeholder="Email" 
+                            required
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            style={{ padding: '10px', border: '1px solid #ccc', borderRadius: '5px' }}
+                        />
+                        
+                        <input 
+                            type="password" 
+                            id="password" 
+                            placeholder="Contraseña" 
+                            required
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            style={{ padding: '10px', border: '1px solid #ccc', borderRadius: '5px' }}
+                        />
+                        
+                        <button 
+                            type="submit" 
+                            id="login-button" 
+                            style={{ padding: '12px', backgroundColor: '#b8860b', color: 'white', border: 'none', borderRadius: '5px', cursor: 'pointer' }}
+                        >
+                            Iniciar Sesión
+                        </button>
+                    </form>
 
-            {/* Muestra el mensaje de estado */}
-            {message && (
-                <p 
-                    id="login-message" 
-                    style={{ textAlign: 'center', marginTop: '15px', color: message.includes('Error') ? 'red' : (message.includes('Redirigiendo') ? 'green' : 'black') }}
-                >
-                    {message}
-                </p>
-            )}
-            
-            <div style={{ textAlign: 'center', marginTop: '20px' }}>
-                <Link href="/">Regresar al inicio</Link>
+                    {/* Muestra el mensaje de estado */}
+                    {message && (
+                        <p 
+                            id="login-message" 
+                            style={{ textAlign: 'center', marginTop: '15px', color: message.includes('Error') ? 'red' : (message.includes('Redirigiendo') ? 'green' : 'black') }}
+                        >
+                            {message}
+                        </p>
+                    )}
+                    
+                    <div style={{ textAlign: 'center', marginTop: '20px' }}>
+                        <Link href="/">Regresar al inicio</Link>
+                    </div>
+                </main>
             </div>
-        </main>
+            
+            <Footer /> {/* Muestra el pie de página */}
+        </>
     );
 }
