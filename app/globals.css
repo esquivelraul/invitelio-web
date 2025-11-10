@@ -1,33 +1,232 @@
-/* app/globals.css - CORRECCIÓN DE DISEÑO RESPONSIVO DEL HEADER */
+/* app/globals.css - Versión Final Corregida */
 
+/* ---------------------------------------------------- */
+/* 1. DIRECTIVAS CRÍTICAS DE TAILWIND CSS */
+/* ---------------------------------------------------- */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---------------------------------------------------- */
+/* 2. IMPORTACIONES DE FUENTES Y VARIABLES */
+/* ---------------------------------------------------- */
+
+/* Google Fonts (Playfair Display y Montserrat) */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;500&display=swap');
+
+/* Font Awesome */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
+
+
+:root {
+    --text-color: #6D6875;
+    --blush: #e0a3ae; 
+    --powder: #B0E0E6;
+    --ivory: #FFFFF0;
+    --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    
+    /* Colores Específicos del Dashboard */
+    --color-primary-text: #3a3a3a; 
+    --color-secondary-text: #707070; 
+    --color-accent: #b8860b; 
+    --color-border: #e0e0e0; 
+    --color-civil: #28a745; 
+    --color-festejo: #007bff; 
+    --color-no: #dc3545; 
+}
+
+/* ---------------------------------------------------- */
+/* BODY Y TIPOGRAFÍA */
+/* ---------------------------------------------------- */
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    min-height: 100vh;
+    background: linear-gradient(135deg, var(--ivory) 0%, var(--powder) 100%);
+    color: var(--text-color);
+    line-height: 1.6;
+    overflow-y: scroll;
+    overflow-x: hidden; 
+}
+
+h1, h2, h3 {
+    font-family: 'Playfair Display', serif;
+    color: var(--color-primary-text);
+    margin-top: 0;
+    margin-bottom: 10px;
+    letter-spacing: 0.5px;
+}
+
+/* ---------------------------------------------------- */
+/* HEADER Y NAVEGACIÓN (CORRECCIÓN CRÍTICA DE DISPLAY) */
+/* ---------------------------------------------------- */
+
+.header {
+    background: rgba(255, 255, 255, 0.96);
+    box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+    padding: 1rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex; 
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    color: var(--text-color);
+    text-decoration: none;
+    letter-spacing: 1px;
+    font-weight: 700;
+}
+
+.nav-container {
+    display: flex; 
+    align-items: center;
+    gap: 2rem;
+}
+
+.nav-menu, .social-menu {
+    display: flex; 
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 1.5rem;
+}
+
+.nav-link, .social-link {
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: 400;
+    transition: var(--transition);
+    font-size: 0.95rem;
+}
+
+.nav-link:hover, .social-link:hover {
+    color: var(--blush); 
+}
+
+.social-link i {
+    font-size: 1.1rem;
+}
+
+/* ---------------------------------------------------- */
+/* MAIN CONTENT, DASHBOARD Y FOOTER */
+/* ---------------------------------------------------- */
+
+.container {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 25px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.banner img, .responsive-banner {
+    display: block;
+    width: 100%; 
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin: 0 auto 20px auto; 
+}
+
+.footer {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 2rem;
+    text-align: center;
+    margin-top: 3rem;
+}
+
+/* --- DASHBOARD Y BOTONES --- */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+    font-size: 0.9em;
+    border-bottom: 1px solid var(--color-border);
+}
+
+th {
+    background-color: #f5f5f5;
+    font-weight: 600;
+    color: var(--color-primary-text);
+    text-transform: uppercase;
+}
+
+.btn-action {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-danger {
+    background-color: var(--color-no); 
+    color: white;
+}
+
+.btn-success {
+    background-color: var(--color-civil); 
+    color: white;
+}
+
+/* VALIDACIÓN DE FORMULARIO */
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-5px); }
+    40%, 80% { transform: translateX(5px); }
+}
+
+.error-shake {
+    animation: shake 0.5s;
+    border: 2px solid red !important; 
+}
+
+/* ---------------------------------------------------- */
+/* RESPONSIVE DESIGN (CORRECCIÓN CRÍTICA DE DISPLAY) */
+/* ---------------------------------------------------- */
 @media (max-width: 768px) {
     .header {
-        flex-direction: column; /* Esto es correcto para apilar el logo y los menús */
+        flex-direction: column; /* Apila el logo y el nav-container */
         padding: 1rem;
         gap: 1rem;
-        align-items: flex-start; /* Alinea los elementos a la izquierda */
+        align-items: flex-start; /* Alinea todo a la izquierda para mejor look móvil */
     }
     
     .nav-container {
-        /* Aseguramos que los menús se apilen */
-        flex-direction: column;
-        width: 100%; /* Ocupa todo el ancho disponible */
-        gap: 1rem;
+        /* CRÍTICO: Mantener los elementos del menú en una sola fila compacta */
+        flex-direction: row; 
+        width: 100%;
+        justify-content: space-between;
+        gap: 0.5rem;
+        padding: 0 5px;
     }
     
     .nav-menu, .social-menu {
-        /* CRÍTICO: Forzamos la alineación de los ítems de navegación */
-        display: flex; 
-        flex-direction: row; /* ⬅️ Mantener horizontal para que los enlaces no sean muy largos */
-        justify-content: space-between; /* Distribuye el espacio entre los enlaces */
-        width: 100%;
+        /* CRÍTICO: Asegura que el menú de navegación principal sea compacto */
+        display: flex;
+        flex-direction: row; /* Fuerza la horizontalidad */
+        flex-wrap: wrap; /* Permite que los elementos se muevan a la siguiente línea si no caben */
+        justify-content: flex-start;
         gap: 0.5rem;
-        padding: 0 10px;
     }
 
-    /* Regla para los enlaces de navegación */
-    .nav-menu li {
-        white-space: nowrap; /* Previene que los enlaces se rompan en dos líneas */
-        font-size: 0.85rem;
+    /* Opcional: Reduce el tamaño de la fuente para que quepa en la fila */
+    .nav-link, .social-link {
+        font-size: 0.75rem; 
     }
 }
