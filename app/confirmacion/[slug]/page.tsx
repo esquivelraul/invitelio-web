@@ -1,9 +1,8 @@
 // app/confirmacion/[slug]/page.tsx
 
 import { notFound } from 'next/navigation';
-// CRÍTICO: La ruta relativa para el cliente SSR
+// ⬅️ CORRECCIÓN DE RUTA: Subimos TRES niveles para llegar a la raíz y entrar a /lib
 import { createServerSupabaseClient } from '../../../lib/supabase/server'; 
-// CRÍTICO: Importamos el formulario y los tipos Group/Invitee
 import ConfirmationForm, { Group, Invitee } from '../../../components/forms/ConfirmationForm'; 
 import Header from '../../../components/Header';
 import Footer from '../../../components/Footer';
@@ -13,10 +12,9 @@ import Footer from '../../../components/Footer';
 // 1. FUNCIÓN DE CARGA DE DATOS (Server-side)
 // ----------------------------------------------------
 
-async function getGroupData(slug: string): Promise<Group | null> {
+async function getGroupData(slug: string): Promise<any | null> {
     const supabase = createServerSupabaseClient(); 
 
-    // ❗ CORRECCIÓN CRÍTICA: Eliminamos max_count y is_child de la consulta ❗
     const { data: group, error } = await supabase
         .from('groups')
         .select(`
@@ -34,13 +32,7 @@ async function getGroupData(slug: string): Promise<Group | null> {
         console.error('Error al cargar datos del grupo:', error.message);
         return null;
     }
-
-    if (!group) {
-        return null;
-    }
-
-    // El tipo debe coincidir con la interfaz en ConfirmationForm.tsx
-    return group as unknown as Group;
+    return group;
 }
 
 
@@ -57,8 +49,8 @@ export default async function ConfirmationPage({ params }: { params: { slug: str
         notFound(); 
     }
     
-    // Si la liga está bloqueada
     if (groupData.is_confirmed) {
+        // Mensaje de bloqueo
         return (
             <>
                 <Header />

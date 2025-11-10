@@ -6,15 +6,12 @@ import { supabase } from '../../lib/supabase/client';
 import Link from 'next/link';
 
 // ----------------------------------------------------
-// 1. INTERFACES DE DATOS (Tipos sin max_count / is_child)
+// 1. INTERFACES DE DATOS (Exportadas para ser usadas en page.tsx)
 // ----------------------------------------------------
-// Nota: Next.js ahora asume que el tipo es 'any' en el Server Component si hay error de columna,
-// por lo que debemos asegurar que nuestras interfaces coincidan con lo que realmente existe en la DB.
 export interface Invitee {
     id: number;
     nombre: string;
     is_confirmed: boolean | null; 
-    // is_child y otros campos problemáticos han sido eliminados del fetch del Server Component
 }
 
 export interface Group {
@@ -23,7 +20,6 @@ export interface Group {
     slug: string;
     is_confirmed: boolean; 
     invitees: Invitee[]; 
-    // max_count ELIMINADO
 }
 
 interface ConfirmationFormProps {
@@ -41,6 +37,7 @@ export default function ConfirmationForm({ group }: ConfirmationFormProps) {
         group.invitees.map(invitee => ({
             invitee_id: invitee.id,
             nombre: invitee.nombre,
+            // ❗ Añadimos 'civil' al tipo para evitar errores
             respuesta: null as ('civil' | 'festejo' | 'no' | null), 
             comentarios: '',
         }))
@@ -89,14 +86,14 @@ export default function ConfirmationForm({ group }: ConfirmationFormProps) {
             alert('Por favor, responde por todos los invitados del grupo.');
             setIsSubmitting(false);
             setStatusMessage('Error: Confirma la asistencia de todos.');
-            return; 
+            return; // Detener el envío si falta validación
         }
 
         let allWritesSuccessful = true;
         const transacciones = inviteeResponses.map(resp => ({
-            group_id: group.id,
+            group_id: group.id, // ID del grupo del servidor
             invitee_id: resp.invitee_id,
-            respuesta: resp.respuesta, 
+            respuesta: resp.respuesta, // Valor será 'Civil', 'Festejo', o 'No'
             comentarios: resp.comentarios,
         }));
         
@@ -155,38 +152,38 @@ export default function ConfirmationForm({ group }: ConfirmationFormProps) {
     return (
         <main className="container mx-auto p-4 max-w-xl">
             
-            {/* ❗❗ ESTRUCTURA VISUAL COMPLETA DEL FORMULARIO ❗❗ */}
-            <div className="card-header" style={{ marginBottom: '20px' }}>
-                
-                {/* Banner (Usamos la ruta directa a public/assets) */}
-                <div className="banner">
-                     <img src="/assests/BANNER BODA.jpg" alt="Confirmación de asistencia" className="responsive-banner"/>
-                </div>
-                
-                {/* Título y Dirección */}
-                <h1 id="titulo-invitacion" className="text-2xl font-bold mt-4">Confirmación de asistencia boda Abigail y Yamil</h1>
-                <p style={{ fontSize: '0.9em', color: '#6D6875' }}>
-                    Dirección del evento: <span id="direccion">Hacienda La Luz, De la Revolución 11, Col. Centro, 62620 Tetecala de Las Reformas, Mor.</span>
-                </p>
-                <hr style={{ margin: '15px 0', borderColor: '#eee' }} />
-
-                {/* Instrucciones Generales */}
-                <h2 className="subtitulo" style={{ fontWeight: 'bold', marginTop: '15px' }}>Queridos invitados:</h2>
-                <p className="instrucciones">
-                    Por favor confirma quiénes de tu familia asistirán y a qué fecha. Cada persona debe seleccionar una sola opción entre las siguientes:
-                </p>
-                <ul>
-                    <li>Asistirá desde el 13 de noviembre (boda civil)</li>
-                    <li>Asistirá el 14 de noviembre (festejo)</li>
-                    <li>No asistirá</li>
-                </ul>
-                
-                <hr style={{ marginTop: '20px', borderTop: '1px solid #ccc' }} /> 
-            </div>
-
-
             <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-xl" id="rsvp-form">
                 
+                {/* ❗❗ INICIO DEL CONTENIDO VISUAL DEL HEADER ORIGINAL ❗❗ */}
+                <div className="card-header" style={{ marginBottom: '20px' }}>
+                    
+                    {/* Banner (Usamos la ruta directa a public/assets) */}
+                    <div className="banner">
+                         <img src="/assests/BANNER BODA.png" alt="Confirmación de asistencia" className="responsive-banner"/>
+                    </div>
+                    
+                    <h1 id="titulo-invitacion" className="text-2xl font-bold mt-4">Confirmación de asistencia boda {group.nombre}</h1>
+                    <p style={{ fontSize: '0.9em', color: '#6D6875' }}>
+                        Dirección del evento: <span id="direccion">Hacienda La Luz, De la Revolución 11, Col. Centro, 62620 Tetecala de Las Reformas, Mor.</span>
+                    </p>
+                    <hr style={{ margin: '15px 0', borderColor: '#eee' }} />
+
+                    {/* Instrucciones Generales */}
+                    <h2 className="subtitulo" style={{ fontWeight: 'bold', marginTop: '15px' }}>Queridos invitados:</h2>
+                    <p className="instrucciones">
+                        Por favor confirma quiénes de tu familia asistirán y a qué fecha. Cada persona debe seleccionar una sola opción entre las siguientes:
+                    </p>
+                    <ul>
+                        <li>Asistirá desde el 13 de noviembre (boda civil)</li>
+                        <li>Asistirá el 14 de noviembre (festejo)</li>
+                        <li>No asistirá</li>
+                    </ul>
+                    
+                    <hr style={{ marginTop: '20px', borderTop: '1px solid #ccc' }} /> 
+                </div>
+                {/* ❗❗ FIN DEL HEADER VISUAL ❗❗ */}
+
+
                 {/* Lista de Invitados */}
                 <div id="lista-invitados">
                     {inviteeResponses.map((invitee) => {
@@ -199,27 +196,44 @@ export default function ConfirmationForm({ group }: ConfirmationFormProps) {
                                     {invitee.nombre} 
                                 </h3>
                                 
-                                {/* Botones de Respuesta */}
+                                {/* Botones de Respuesta - AHORA CON LAS 3 OPCIONES CORRECTAS */}
                                 <div className="flex flex-col gap-2">
+                                    
+                                    {/* 1. Opción: Boda Civil (Valor: Civil) */}
+                                    <label htmlFor={`civil_${invitee.invitee_id}`} className="cursor-pointer">
+                                        <input 
+                                            type="radio" 
+                                            id={`civil_${invitee.invitee_id}`} 
+                                            name={inputName} 
+                                            value="civil" // ⬅️ Nuevo valor para la DB
+                                            checked={currentResponse?.respuesta === 'civil'}
+                                            onChange={() => handleResponseChange(invitee.invitee_id, 'civil')}
+                                            required 
+                                            className="mr-2 accent-[#b8860b]"
+                                        /> Asistirá desde el 13 de noviembre (Boda Civil)
+                                    </label>
+                                    
+                                    {/* 2. Opción: Festejo (Valor: Festejo) */}
                                     <label htmlFor={`festejo_${invitee.invitee_id}`} className="cursor-pointer">
                                         <input 
                                             type="radio" 
                                             id={`festejo_${invitee.invitee_id}`} 
                                             name={inputName} 
-                                            value="Festejo" 
+                                            value="festejo" 
                                             checked={currentResponse?.respuesta === 'festejo'}
                                             onChange={() => handleResponseChange(invitee.invitee_id, 'festejo')}
                                             required 
                                             className="mr-2 accent-[#007bff]"
-                                        /> Asistirá
+                                        /> Asistirá el 14 de noviembre (Festejo)
                                     </label>
                                     
+                                    {/* 3. Opción: No Asistirá (Valor: No) */}
                                     <label htmlFor={`no_${invitee.invitee_id}`} className="cursor-pointer">
                                         <input 
                                             type="radio" 
                                             id={`no_${invitee.invitee_id}`} 
                                             name={inputName} 
-                                            value="No" 
+                                            value="no" 
                                             checked={currentResponse?.respuesta === 'no'}
                                             onChange={() => handleResponseChange(invitee.invitee_id, 'no')}
                                             required 
@@ -234,7 +248,7 @@ export default function ConfirmationForm({ group }: ConfirmationFormProps) {
                 
                 {/* Campo de Comentarios (General) */}
                 <div style={{ marginTop: '25px' }}>
-                    <label htmlFor="comentarios" style={{ display: 'block', fontWeight: 'bold' }} className="mb-2">Comentarios (Restricciones/Mensajes):</label>
+                    <label htmlFor="comentarios" style={{ display: 'block', fontWeight: 'bold' }} className="mb-2">Comentarios para los novios (opcional):</label>
                     <textarea 
                         id="comentarios" 
                         rows={3} 
@@ -247,7 +261,7 @@ export default function ConfirmationForm({ group }: ConfirmationFormProps) {
                 <button 
                     type="submit" 
                     disabled={isSubmitting}
-                    className={`w-full py-3 mt-6 font-bold rounded-md transition ${isSubmitting ? 'bg-gray-400' : 'bg-[#b8860b] hover:bg-[#a07a09]'}`}
+                    className={`w-full py-3 mt-6 font-bold rounded-md transition ${isSubmitting ? 'bg-gray-400' : 'bg-[#b8860b] hover:bg-[#a2cffe]'}`}
                 >
                     {isSubmitting ? 'Enviando...' : 'Confirmar Respuestas'}
                 </button>
