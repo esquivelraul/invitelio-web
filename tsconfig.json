@@ -21,7 +21,7 @@
         "name": "next"
       }
     ],
-    // 💡 CORRECCIÓN CRÍTICA: ESTAS LÍNEAS ACTIVAN EL ALIAS @/
+    // 💡 ESTAS LÍNEAS ACTIVAN EL ALIAS @/
     "baseUrl": ".",
     "paths": {
       "@/*": ["./*"]

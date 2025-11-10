@@ -1,24 +1,24 @@
-/* app/globals.css - Versión Final Integrada */
+/* app/globals.css - Versión Final Corregida para Next.js */
 
 /* ---------------------------------------------------- */
-/* DIRECTIVAS CRÍTICAS DE TAILWIND CSS */
+/* 1. DIRECTIVAS CRÍTICAS DE TAILWIND CSS */
 /* ---------------------------------------------------- */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 /* ---------------------------------------------------- */
-/* IMPORTACIONES DE FUENTES */
+/* 2. IMPORTACIONES DE FUENTES Y VARIABLES */
 /* ---------------------------------------------------- */
-/* Para asegurar que las fuentes se carguen si el layout.tsx no usa <link> */
+
+/* Google Fonts (Playfair Display y Montserrat) */
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;500&display=swap');
+
+/* Font Awesome */
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
 
 
-/* ---------------------------------------------------- */
-/* VARIABLES Y ESTILOS GLOBALES */
-/* ---------------------------------------------------- */
-
+/* VARIABLES DE DISEÑO */
 :root {
     --text-color: #6D6875;
     --blush: #e0a3ae; 
@@ -37,7 +37,7 @@
 }
 
 /* ---------------------------------------------------- */
-/* BODY Y ESTRUCTURA */
+/* BODY Y TIPOGRAFÍA */
 /* ---------------------------------------------------- */
 body {
     font-family: 'Montserrat', sans-serif;
@@ -59,7 +59,7 @@ h1, h2, h3 {
 }
 
 /* ---------------------------------------------------- */
-/* HEADER Y NAVEGACIÓN */
+/* HEADER Y NAVEGACIÓN (CORRECCIÓN CRÍTICA DE DISPLAY) */
 /* ---------------------------------------------------- */
 
 .header {
@@ -69,12 +69,10 @@ h1, h2, h3 {
     position: sticky;
     top: 0;
     z-index: 100;
-    display: flex;
+    display: flex; /* ⬅️ CRÍTICO: Alinea el logo y el menú principal */
     justify-content: space-between;
     align-items: center;
 }
-
-/* ... (el resto de tus estilos de Header, Footer, Container, y Responsive) ... */
 
 .logo {
     font-family: 'Playfair Display', serif;
@@ -85,6 +83,41 @@ h1, h2, h3 {
     font-weight: 700;
 }
 
+.nav-container {
+    display: flex; /* ⬅️ CRÍTICO: Alinea el nav-menu y social-menu */
+    align-items: center;
+    gap: 2rem;
+}
+
+.nav-menu, .social-menu {
+    /* CRÍTICO: Fuerza la alineación horizontal de los ítems de lista */
+    display: flex; 
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 1.5rem;
+}
+
+.nav-link, .social-link {
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: 400;
+    transition: var(--transition);
+    font-size: 0.95rem;
+}
+
+.nav-link:hover, .social-link:hover {
+    color: var(--blush); 
+}
+
+.social-link i {
+    font-size: 1.1rem;
+}
+
+/* ---------------------------------------------------- */
+/* MAIN CONTENT Y DASHBOARD */
+/* ---------------------------------------------------- */
+
 .container {
     max-width: 800px;
     margin: 30px auto;
@@ -94,10 +127,94 @@ h1, h2, h3 {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
+.banner img, .responsive-banner {
+    display: block;
+    width: 100%; 
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin: 0 auto 20px auto; 
+}
+
 .footer {
     background: rgba(255, 255, 255, 0.9);
     padding: 2rem;
     text-align: center;
     margin-top: 3rem;
 }
-/* ... (El resto de tus estilos de tabla y responsive) ... */
+
+/* --- DASHBOARD Y BOTONES --- */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+    font-size: 0.9em;
+    border-bottom: 1px solid var(--color-border);
+}
+
+th {
+    background-color: #f5f5f5;
+    font-weight: 600;
+    color: var(--color-primary-text);
+    text-transform: uppercase;
+}
+
+.btn-action {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-danger {
+    background-color: var(--color-no); 
+    color: white;
+}
+
+.btn-success {
+    background-color: var(--color-civil); 
+    color: white;
+}
+
+/* VALIDACIÓN DE FORMULARIO */
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-5px); }
+    40%, 80% { transform: translateX(5px); }
+}
+
+.error-shake {
+    animation: shake 0.5s;
+    border: 2px solid red !important; 
+}
+
+/* ---------------------------------------------------- */
+/* RESPONSIVE DESIGN */
+/* ---------------------------------------------------- */
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        padding: 1rem;
+        gap: 1rem;
+    }
+    
+    .nav-container {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .nav-menu, .social-menu {
+        flex-direction: column; 
+        gap: 0.5rem;
+    }
+}
