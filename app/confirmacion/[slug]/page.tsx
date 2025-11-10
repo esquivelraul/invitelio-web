@@ -1,9 +1,10 @@
 // app/confirmacion/[slug]/page.tsx
 
 import { notFound } from 'next/navigation';
+// CRÍTICO: La ruta relativa para el cliente SSR
 import { createServerSupabaseClient } from '../../../lib/supabase/server'; 
+// CRÍTICO: Importamos el formulario y los tipos Group/Invitee
 import ConfirmationForm, { Group, Invitee } from '../../../components/forms/ConfirmationForm'; 
-// ❗ Importar Header y Footer para que se vean ❗
 import Header from '../../../components/Header';
 import Footer from '../../../components/Footer';
 
@@ -15,16 +16,15 @@ import Footer from '../../../components/Footer';
 async function getGroupData(slug: string): Promise<Group | null> {
     const supabase = createServerSupabaseClient(); 
 
+    // ❗ CORRECCIÓN CRÍTICA: Eliminamos max_count y is_child de la consulta ❗
     const { data: group, error } = await supabase
         .from('groups')
-        // ❗ CRÍTICO: Aseguramos que la consulta solo traiga campos que existen ❗
         .select(`
             id,
             nombre,
             slug,
             is_confirmed,
             invitees (id, nombre) 
-            /* Se eliminó max_count y is_child */
         `)
         .eq('slug', slug.trim())
         .limit(1)
@@ -34,7 +34,12 @@ async function getGroupData(slug: string): Promise<Group | null> {
         console.error('Error al cargar datos del grupo:', error.message);
         return null;
     }
-    // ... (resto de la función) ...
+
+    if (!group) {
+        return null;
+    }
+
+    // El tipo debe coincidir con la interfaz en ConfirmationForm.tsx
     return group as unknown as Group;
 }
 
@@ -61,14 +66,15 @@ export default async function ConfirmationPage({ params }: { params: { slug: str
                     <h1 className="text-3xl font-bold mb-4" style={{ color: '#e65100' }}>
                         Confirmación Registrada
                     </h1>
-                    <p className="text-gray-700">La invitación para **{groupData.nombre}** ya fue procesada.</p>
+                    <p className="text-gray-700">La invitación para **{groupData.nombre}** ya fue procesada y el enlace ha sido deshabilitado.</p>
+                    <p className="mt-4 text-sm text-gray-500">Por favor, contacta a los novios si necesitas hacer modificaciones.</p>
                 </div>
                 <Footer />
             </>
         );
     }
     
-    // Si el grupo existe y NO está confirmado (Renderizar el Formulario)
+    // Renderizar el formulario si el grupo existe y no está confirmado
     return (
         <>
             <Header />

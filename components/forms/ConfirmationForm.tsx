@@ -6,13 +6,15 @@ import { supabase } from '../../lib/supabase/client';
 import Link from 'next/link';
 
 // ----------------------------------------------------
-// 1. INTERFACES DE DATOS (Corregidas - Eliminamos is_child)
+// 1. INTERFACES DE DATOS (Tipos sin max_count / is_child)
 // ----------------------------------------------------
+// Nota: Next.js ahora asume que el tipo es 'any' en el Server Component si hay error de columna,
+// por lo que debemos asegurar que nuestras interfaces coincidan con lo que realmente existe en la DB.
 export interface Invitee {
     id: number;
     nombre: string;
     is_confirmed: boolean | null; 
-    // is_child ELIMINADO
+    // is_child y otros campos problemáticos han sido eliminados del fetch del Server Component
 }
 
 export interface Group {
@@ -21,8 +23,7 @@ export interface Group {
     slug: string;
     is_confirmed: boolean; 
     invitees: Invitee[]; 
-    max_count: number;
-    // is_child ELIMINADO
+    // max_count ELIMINADO
 }
 
 interface ConfirmationFormProps {
@@ -42,7 +43,6 @@ export default function ConfirmationForm({ group }: ConfirmationFormProps) {
             nombre: invitee.nombre,
             respuesta: null as ('civil' | 'festejo' | 'no' | null), 
             comentarios: '',
-            // is_child ELIMINADO de la inicialización del estado
         }))
     );
     
@@ -89,12 +89,12 @@ export default function ConfirmationForm({ group }: ConfirmationFormProps) {
             alert('Por favor, responde por todos los invitados del grupo.');
             setIsSubmitting(false);
             setStatusMessage('Error: Confirma la asistencia de todos.');
-            return; // Detener el envío si falta validación
+            return; 
         }
 
         let allWritesSuccessful = true;
         const transacciones = inviteeResponses.map(resp => ({
-            group_id: group.id, // ID del grupo del servidor
+            group_id: group.id,
             invitee_id: resp.invitee_id,
             respuesta: resp.respuesta, 
             comentarios: resp.comentarios,
@@ -144,7 +144,6 @@ export default function ConfirmationForm({ group }: ConfirmationFormProps) {
                  setStatusMessage('Confirmaciones enviadas. Error al bloquear la liga.');
             } else {
                  setStatusMessage('¡Confirmación enviada con éxito! Recargando...');
-                 // Forzar Recarga para que el Server Component renderice el mensaje de bloqueo
                  setTimeout(() => window.location.reload(), 1000); 
             }
         }
@@ -156,16 +155,38 @@ export default function ConfirmationForm({ group }: ConfirmationFormProps) {
     return (
         <main className="container mx-auto p-4 max-w-xl">
             
-            <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-xl" id="rsvp-form">
-                <h2 className="text-2xl font-bold mb-4 text-center">
-                    Confirma tu asistencia, {group.nombre}
-                </h2>
+            {/* ❗❗ ESTRUCTURA VISUAL COMPLETA DEL FORMULARIO ❗❗ */}
+            <div className="card-header" style={{ marginBottom: '20px' }}>
                 
-                {/* Instrucciones Generales */}
-                <p className="text-gray-600 mb-6 border-b pb-4">
-                    Por favor, selecciona una opción de asistencia para **cada persona** de tu grupo:
+                {/* Banner (Usamos la ruta directa a public/assets) */}
+                <div className="banner">
+                     <img src="/assests/BANNER BODA.jpg" alt="Confirmación de asistencia" className="responsive-banner"/>
+                </div>
+                
+                {/* Título y Dirección */}
+                <h1 id="titulo-invitacion" className="text-2xl font-bold mt-4">Confirmación de asistencia boda Abigail y Yamil</h1>
+                <p style={{ fontSize: '0.9em', color: '#6D6875' }}>
+                    Dirección del evento: <span id="direccion">Hacienda La Luz, De la Revolución 11, Col. Centro, 62620 Tetecala de Las Reformas, Mor.</span>
                 </p>
+                <hr style={{ margin: '15px 0', borderColor: '#eee' }} />
 
+                {/* Instrucciones Generales */}
+                <h2 className="subtitulo" style={{ fontWeight: 'bold', marginTop: '15px' }}>Queridos invitados:</h2>
+                <p className="instrucciones">
+                    Por favor confirma quiénes de tu familia asistirán y a qué fecha. Cada persona debe seleccionar una sola opción entre las siguientes:
+                </p>
+                <ul>
+                    <li>Asistirá desde el 13 de noviembre (boda civil)</li>
+                    <li>Asistirá el 14 de noviembre (festejo)</li>
+                    <li>No asistirá</li>
+                </ul>
+                
+                <hr style={{ marginTop: '20px', borderTop: '1px solid #ccc' }} /> 
+            </div>
+
+
+            <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-xl" id="rsvp-form">
+                
                 {/* Lista de Invitados */}
                 <div id="lista-invitados">
                     {inviteeResponses.map((invitee) => {
