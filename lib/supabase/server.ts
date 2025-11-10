@@ -1,4 +1,5 @@
-// lib/supabase/server.ts (¡Este es un archivo crítico!)
+// lib/supabase/server.ts
+// Este es un archivo crítico para Next.js Server Components
 
 import { createServerClient, type CookieOptions } from '@supabase/ssr'
 import { cookies } from 'next/headers'
@@ -24,4 +25,4 @@ export function createServerSupabaseClient() {
       },
     }
   )
-}
+} // ⬅️ La función termina aquí, sin corchetes extra
