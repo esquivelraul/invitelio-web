@@ -2,27 +2,28 @@
 
 import type { Metadata } from 'next';
 import { ReactNode } from 'react';
-
-// CRÍTICO: Importación de estilos globales (contiene todos los estilos y fuentes por @import)
 import './globals.css'; 
 
-// 1. Definición de metadatos (para el <title>)
+// Definición de metadatos
 export const metadata: Metadata = {
   title: 'Invitelio | Confirmaciones y Catálogo',
   description: 'Invitaciones digitales con estilo y gestión de eventos.',
 };
 
-// 2. Componente RootLayout
 export default function RootLayout({
   children,
 }: {
   children: ReactNode;
 }) {
   return (
-    // Estructura HTML principal
     <html lang="es">
-      
-      {/* Ya no usamos <head> con enlaces <link>, ya que el CSS los manejará */}
+      <head> 
+        {/* Importación de Font Awesome y Google Fonts */}
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet" />
+      </head>
       
       <body>
         {children}

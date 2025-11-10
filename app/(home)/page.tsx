@@ -1,22 +1,20 @@
-// invitaciones-vercel/app/page.tsx
+// invitaciones-vercel/app/(home)/page.tsx
 
 import Link from 'next/link';
-// Importaciones a tus componentes (asegúrate de que estén en /components/Header.tsx y /components/Footer.tsx)
-import Header from '../components/Header'; 
-import Footer from '../components/Footer'; 
+// Importaciones de los componentes (la ruta sube un nivel de app/(home) y entra a components)
+import Header from '../../components/Header'; 
+import Footer from '../../components/Footer'; 
 
 // Componente principal de la página Raíz (Server Component)
 export default function HomePage() {
     return (
         <>
-            <Header /> {/* Muestra la navegación y redes sociales */}
+            <Header />
 
-            {/* CONTENIDO PRINCIPAL: Hero section estilizado. */}
             <main className="flex flex-col items-center justify-center min-h-[80vh] text-center">
                 
-                {/* Título Principal: Invitelio */}
+                {/* Título Principal */}
                 <h1 className="text-6xl md:text-7xl font-extrabold mb-4 text-gray-800" 
-                    // Aplica la fuente que cargamos en layout.tsx
                     style={{ fontFamily: 'Playfair Display, serif' }}>
                     Invitelio
                 </h1>

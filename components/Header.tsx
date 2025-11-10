@@ -12,7 +12,6 @@ export default function Header() {
                     <li><Link href="/" className="nav-link">Inicio</Link></li>
                     <li><Link href="/catalogo" className="nav-link">Catálogo</Link></li>
                     <li><Link href="/login" className="nav-link">Acceso Novios</Link></li>
-                    {/* Mantenemos estos como anclas simples si aún no hay ruta */}
                     <li><a href="#" className="nav-link">Otros Servicios</a></li>
                     <li><a href="#" className="nav-link">Contacto</a></li>
                 </ul>
