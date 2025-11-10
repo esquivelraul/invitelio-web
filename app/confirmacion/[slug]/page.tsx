@@ -58,7 +58,7 @@ export default async function ConfirmationPage({ params }: { params: { slug: str
                     <h1 className="text-3xl font-bold mb-4" style={{ color: '#e65100' }}>
                         Confirmación Registrada
                     </h1>
-                    <p className="text-gray-700">La invitación para **{groupData.nombre}** ya fue procesada y el enlace ha sido deshabilitado.</p>
+                    <p className="text-gray-700">La invitación ya fue procesada y el enlace ha sido deshabilitado.</p>
                     <p className="mt-4 text-sm text-gray-500">Por favor, contacta a los novios si necesitas hacer modificaciones.</p>
                 </div>
                 <Footer />

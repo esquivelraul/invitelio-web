@@ -37,7 +37,6 @@ export default function ConfirmationForm({ group }: ConfirmationFormProps) {
         group.invitees.map(invitee => ({
             invitee_id: invitee.id,
             nombre: invitee.nombre,
-            // ❗ Añadimos 'civil' al tipo para evitar errores
             respuesta: null as ('civil' | 'festejo' | 'no' | null), 
             comentarios: '',
         }))
@@ -91,9 +90,9 @@ export default function ConfirmationForm({ group }: ConfirmationFormProps) {
 
         let allWritesSuccessful = true;
         const transacciones = inviteeResponses.map(resp => ({
-            group_id: group.id, // ID del grupo del servidor
+            group_id: group.id,
             invitee_id: resp.invitee_id,
-            respuesta: resp.respuesta, // Valor será 'Civil', 'Festejo', o 'No'
+            respuesta: resp.respuesta, 
             comentarios: resp.comentarios,
         }));
         
@@ -154,7 +153,7 @@ export default function ConfirmationForm({ group }: ConfirmationFormProps) {
             
             <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-xl" id="rsvp-form">
                 
-                {/* ❗❗ INICIO DEL CONTENIDO VISUAL DEL HEADER ORIGINAL ❗❗ */}
+                {/* Estructura Visual del Encabezado */}
                 <div className="card-header" style={{ marginBottom: '20px' }}>
                     
                     {/* Banner (Usamos la ruta directa a public/assets) */}
@@ -181,7 +180,6 @@ export default function ConfirmationForm({ group }: ConfirmationFormProps) {
                     
                     <hr style={{ marginTop: '20px', borderTop: '1px solid #ccc' }} /> 
                 </div>
-                {/* ❗❗ FIN DEL HEADER VISUAL ❗❗ */}
 
 
                 {/* Lista de Invitados */}
@@ -205,7 +203,7 @@ export default function ConfirmationForm({ group }: ConfirmationFormProps) {
                                             type="radio" 
                                             id={`civil_${invitee.invitee_id}`} 
                                             name={inputName} 
-                                            value="civil" // ⬅️ Nuevo valor para la DB
+                                            value="Civil" 
                                             checked={currentResponse?.respuesta === 'civil'}
                                             onChange={() => handleResponseChange(invitee.invitee_id, 'civil')}
                                             required 
@@ -219,7 +217,7 @@ export default function ConfirmationForm({ group }: ConfirmationFormProps) {
                                             type="radio" 
                                             id={`festejo_${invitee.invitee_id}`} 
                                             name={inputName} 
-                                            value="festejo" 
+                                            value="Festejo" 
                                             checked={currentResponse?.respuesta === 'festejo'}
                                             onChange={() => handleResponseChange(invitee.invitee_id, 'festejo')}
                                             required 
@@ -233,7 +231,7 @@ export default function ConfirmationForm({ group }: ConfirmationFormProps) {
                                             type="radio" 
                                             id={`no_${invitee.invitee_id}`} 
                                             name={inputName} 
-                                            value="no" 
+                                            value="No" 
                                             checked={currentResponse?.respuesta === 'no'}
                                             onChange={() => handleResponseChange(invitee.invitee_id, 'no')}
                                             required 
@@ -259,12 +257,23 @@ export default function ConfirmationForm({ group }: ConfirmationFormProps) {
                 </div>
 
                 <button 
-                    type="submit" 
-                    disabled={isSubmitting}
-                    className={`w-full py-3 mt-6 font-bold rounded-md transition ${isSubmitting ? 'bg-gray-400' : 'bg-[#b8860b] hover:bg-[#a2cffe]'}`}
-                >
-                    {isSubmitting ? 'Enviando...' : 'Confirmar Respuestas'}
-                </button>
+    type="submit" 
+    disabled={isSubmitting}
+    style={{ 
+        width: '100%', 
+        padding: '12px', 
+        marginTop: '25px', 
+        fontWeight: 'bold', 
+        borderRadius: '5px', 
+        border: 'none',
+        // ❗ APLICAMOS EL AZUL PASTEL EN LÍNEA ❗
+        backgroundColor: isSubmitting ? '#ccc' : '#ADD8E6', 
+        color: isSubmitting ? '#555' : '#333',
+        cursor: 'pointer'
+    }}
+>
+    {isSubmitting ? 'Enviando...' : 'Confirmar Respuestas'}
+</button>
                 
                 {/* Mensaje de estado */}
                 {statusMessage && (
