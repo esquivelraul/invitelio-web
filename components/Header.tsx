@@ -1,4 +1,5 @@
 // invitaciones-vercel/components/Header.tsx
+'use client'; // ⬅️ CRÍTICO: Indica que este componente debe hidratarse en el cliente
 
 import Link from 'next/link';
 

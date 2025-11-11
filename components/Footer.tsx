@@ -1,4 +1,5 @@
 // invitaciones-vercel/components/Footer.tsx
+'use client'; // ⬅️ CRÍTICO
 
 export default function Footer() {
     return (
