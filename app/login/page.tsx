@@ -2,16 +2,15 @@
 
 'use client'; 
 
-import { useState, FormEvent, useEffect } from 'react';
+import { useState, FormEvent } from 'react'; // ❗ useEffect YA NO es necesario
 import { useRouter } from 'next/navigation'; 
 import Link from 'next/link';
 
-// 💡 CORRECCIÓN DE RUTA CRÍTICA: Subir dos niveles (../..) para acceder a /components/
 import Header from '../../components/Header'; 
 import Footer from '../../components/Footer'; 
 
-// Importar el cliente Supabase (usando el alias estándar @/ que apunta a la raíz)
-import { supabase } from '@/lib/supabaseClient'; 
+// Asegúrate de que tu importación del cliente Supabase sea correcta
+import { supabase } from '@/lib/supabase/client'; 
 
 
 export default function LoginPage() {
@@ -20,25 +19,11 @@ export default function LoginPage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
-    const [isLoading, setIsLoading] = useState(true); 
+    // ❗ [!] ELIMINAMOS isLoading y setIsLoading
     
     const router = useRouter();
 
-    // 3. Efecto para Verificar Sesión al Cargar
-    useEffect(() => {
-        const checkSession = async () => {
-            const { data: { session } } = await supabase.auth.getSession();
-            
-            if (session) {
-                // Redirige a /novios si ya está logueado
-                router.replace('/novios'); 
-            } else {
-                setIsLoading(false); // Listo para mostrar el formulario
-            }
-        };
-        checkSession();
-    }, [router]);
-
+    // ❗ [!] ELIMINAMOS EL useEffect DE VERIFICACIÓN DE SESIÓN AL CARGAR LA PÁGINA
 
     // 4. Manejador de Envío de Formulario
     const handleSubmit = async (e: FormEvent) => {
@@ -62,22 +47,19 @@ export default function LoginPage() {
 
         // Si es exitoso
         setMessage('¡Inicio de sesión exitoso! Redirigiendo...');
+        
+        // 🔑 CAMBIO CRÍTICO: Usamos router.refresh() para forzar a Next.js a 
+        // re-evaluar app/novios/page.tsx como un Server Component.
+        router.refresh(); 
         router.push('/novios'); 
     };
 
-    // Muestra un mensaje de carga mientras se verifica la sesión
-    if (isLoading) {
-        return (
-            <div className="flex justify-center items-center min-h-screen">
-                <p>Verificando sesión. Por favor, espera...</p>
-            </div>
-        );
-    }
+    // ❗ [!] ELIMINAMOS EL CONDICIONAL if (isLoading) { return <p>...</p>; }
 
     // 5. Renderizado (JSX)
     return (
         <>
-            <Header /> {/* Muestra la navegación */}
+            <Header /> 
             
             <div className="flex justify-center items-center min-h-[80vh] bg-gray-50 p-4">
                 <main className="container" style={{ maxWidth: '400px', margin: 'auto' }}>
@@ -130,7 +112,7 @@ export default function LoginPage() {
                 </main>
             </div>
             
-            <Footer /> {/* Muestra el pie de página */}
+            <Footer />
         </>
     );
 }

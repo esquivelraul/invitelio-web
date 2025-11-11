@@ -3,6 +3,7 @@
 import type { Metadata } from 'next';
 import { ReactNode } from 'react';
 import './globals.css'; 
+import SupabaseListener from '@/components/SupabaseListener'; // ⬅️ NUEVA IMPORTACIÓN
 
 // Definición de metadatos
 export const metadata: Metadata = {
@@ -26,6 +27,7 @@ export default function RootLayout({
       </head>
       
       <body>
+        <SupabaseListener /> {/* ⬅️ Añade el Listener aquí */}
         {children}
       </body>
     </html>
