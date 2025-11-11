@@ -161,7 +161,7 @@ export default function ConfirmationForm({ group }: ConfirmationFormProps) {
                          <img src="/assests/BANNER BODA.png" alt="Confirmación de asistencia" className="responsive-banner"/>
                     </div>
                     
-                    <h1 id="titulo-invitacion" className="text-2xl font-bold mt-4">Confirmación de asistencia boda {group.nombre}</h1>
+                    <h1 id="titulo-invitacion" className="text-2xl font-bold mt-4">Confirmación de asistencia a la boda de Abigail Yamil</h1>
                     <p style={{ fontSize: '0.9em', color: '#6D6875' }}>
                         Dirección del evento: <span id="direccion">Hacienda La Luz, De la Revolución 11, Col. Centro, 62620 Tetecala de Las Reformas, Mor.</span>
                     </p>
