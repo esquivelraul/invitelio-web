@@ -45,17 +45,17 @@ async function getConfirmationData(): Promise<ConfirmationData[]> {
         return [];
     }
 
-    // 🔑 CORRECCIÓN: Manejo robusto de la relación para extraer el nombre (Array o Objeto)
+    // 🔑 CORRECCIÓN 1: Manejo robusto de la relación (Array o Objeto)
     return (data as any[]).map(conf => {
         const relationshipData = conf.invitees;
         let invitadoNombre = 'N/A';
         
         if (relationshipData) {
             if (Array.isArray(relationshipData) && relationshipData.length > 0) {
-                // Caso 1: Supabase devuelve un array (relación uno a muchos)
+                // Caso 1: Supabase devuelve un array
                 invitadoNombre = relationshipData[0].nombre;
             } else if (typeof relationshipData === 'object' && relationshipData !== null && 'nombre' in relationshipData) {
-                // Caso 2: Supabase devuelve un objeto simple (relación uno a uno, lo más común)
+                // Caso 2: Supabase devuelve un objeto simple (uno a uno)
                 invitadoNombre = relationshipData.nombre;
             }
         }
@@ -124,12 +124,14 @@ export default function NoviosDashboard() {
     };
 
 
-    // LÓGICA DE RENDERIZADO DEL RESUMEN
+    // LÓGICA DE RENDERIZADO DEL RESUMEN (CORREGIDA)
     const renderSummary = () => { 
         const totalRegistros = confirmations.length;
-        let asistiraCivil = confirmations.filter(c => c.respuesta === 'Civil').length;
-        let asistiraFestejo = confirmations.filter(c => c.respuesta === 'Festejo').length;
-        let noAsistira = confirmations.filter(c => c.respuesta === 'No').length;
+        
+        // 🔑 CORRECCIÓN 2: Normalizamos la comparación a minúsculas para el conteo
+        let asistiraCivil = confirmations.filter(c => c.respuesta.toLowerCase() === 'civil').length;
+        let asistiraFestejo = confirmations.filter(c => c.respuesta.toLowerCase() === 'festejo').length;
+        let noAsistira = confirmations.filter(c => c.respuesta.toLowerCase() === 'no').length;
 
         // Devuelve el JSX de las tarjetas de resumen
         return (
@@ -160,7 +162,7 @@ export default function NoviosDashboard() {
         );
     }
 
-    // LÓGICA DE RENDERIZADO DE LA TABLA
+    // LÓGICA DE RENDERIZADO DE LA TABLA (CORREGIDA)
     const renderTableContent = () => {
         if (confirmations.length === 0) {
             return <p style={{ textAlign: 'center', color: '#555' }}>Aún no hay confirmaciones registradas.</p>;
@@ -180,9 +182,23 @@ export default function NoviosDashboard() {
                         </thead>
                         <tbody>
                             {confirmations.map(conf => {
-                                const statusColor = conf.respuesta === 'No' ? COLOR_NO : (conf.respuesta === 'Civil' ? COLOR_CIVIL : COLOR_FESTEJO);
-                                const statusText = conf.respuesta === 'No' ? 'No Asiste' : (conf.respuesta === 'Civil' ? 'Boda Civil' : 'Festejo');
+                                // 🔑 CORRECCIÓN 3: Normalizamos la respuesta a minúsculas para determinar el texto y color
+                                const respuestaLower = conf.respuesta.toLowerCase(); 
 
+                                let statusColor = COLOR_FESTEJO; 
+                                let statusText = 'Festejo';      
+
+                                if (respuestaLower === 'no') {
+                                    statusColor = COLOR_NO;
+                                    statusText = 'No Asiste';
+                                } else if (respuestaLower === 'civil') {
+                                    statusColor = COLOR_CIVIL;
+                                    statusText = 'Boda Civil';
+                                } else if (respuestaLower === 'festejo') {
+                                    statusColor = COLOR_FESTEJO;
+                                    statusText = 'Festejo';
+                                }
+                                
                                 return (
                                     <tr key={conf.id} style={{ borderBottom: '1px solid #eee' }}>
                                         <td style={{ padding: '15px', fontWeight: 500, color: COLOR_TEXT }}>{conf.invitado_nombre}</td>
