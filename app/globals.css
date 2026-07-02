@@ -1412,49 +1412,46 @@ th {
   font-family: 'Allura', cursive;
   font-size: 4rem;
   color: #fff7ef;
-  margin: 0rem 0 2rem;
+  margin: 0 0 2rem;
 }
 
-.ay-itinerary-wrapper{
-    position:relative;
-    width:100%;
-    min-height:820px;
+.ay-itinerary-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 430px;
+  min-height: 860px;
+  margin: 0 auto;
+  overflow: visible;
 }
 
-.ay-timeline-line{
-    position:absolute;
-    left:50%;
-    transform:translateX(-50%);
-    top:-2rem;
-
-    width:170px;
-    height:auto;
-
-    z-index:2;
+.ay-timeline-line {
+  position: absolute;
+  left: 50%;
+  top: -1.8rem;
+  transform: translateX(-50%);
+  width: 165px;
+  height: auto;
+  z-index: 2;
 }
 
-.ay-hacienda{
-    position:absolute;
-    width:105px;
-
-    top: -2rem;      /* antes 8.8rem */
-    left: 1rem;
-
-    z-index:3;
+.ay-hacienda {
+  position: absolute;
+  width: 96px;
+  top: -1.5rem;
+  left: 0.8rem;
+  z-index: 3;
 }
 
-.ay-iglesia{
-    position:absolute;
-    width:105px;
-
-    top: 7.5rem;     /* antes 18.8rem */
-    right: 1rem;
-
-    z-index:3;
+.ay-iglesia {
+  position: absolute;
+  width: 96px;
+  top: 7.8rem;
+  right: 0.8rem;
+  z-index: 3;
 }
 
 /* ==========================================
-   EVENTOS DEL ITINERARIO
+   Eventos del itinerario
 ========================================== */
 
 .ay-event {
@@ -1462,49 +1459,45 @@ th {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  gap: 18px;
-  width: 160px;
+  gap: 10px;
+  width: 145px;
   color: #fff;
 }
 
-.ay-event-text{
-    transform:translateX(-14px);
+.ay-event-text {
+  transform: none;
 }
 
 .ay-event-icon {
-  width: 54px;
+  width: 46px;
   height: auto;
   flex-shrink: 0;
 }
 
-.ay-event strong{
-    display:block;
-    font-size:1.20rem;   /* antes 1.45rem */
-    font-weight:700;
-    line-height:1;
+.ay-event strong {
+  display: block;
+  font-size: 1.55rem;
+  font-weight: 700;
+  line-height: 1;
 }
 
-.ay-event p{
-    margin:.15rem 0 0;
-    font-size:1rem;    /* antes .78rem */
-    font-weight:500;
-    line-height:1.1;
+.ay-event p {
+  margin: 0.15rem 0 0;
+  font-size: 1.05rem;
+  font-weight: 500;
+  line-height: 1.05;
 }
-
-
 
 /* Ceremonia Civil */
-
 .ay-event-civil {
-  top: 2rem;
-  right: 0.8rem;
+  top: 2.5rem;
+  right: 1rem;
 }
 
 /* Inicio de ceremonia */
-
-.ay-event-ceremonia{
-    top:14rem;
-    left:4rem;
+.ay-event-ceremonia {
+  top: 13rem;
+  left: 3rem;
 }
 
 .ay-event-left {
@@ -1516,39 +1509,103 @@ th {
 }
 
 .ay-event-icon-anillos {
-  transform: translateX(-8px);
+  transform: translateX(0);
 }
 
 /* Coctel */
-
 .ay-event-coctel {
   top: 18rem;
-  right: 0rem;
+  right: 1rem;
 }
 
 /* Banquete */
-
 .ay-event-banquete {
-  top: 22.5rem;
-  left: 4rem;
+  top: 22rem;
+  left: 3rem;
 }
 
 /* After Party */
-
 .ay-event-after {
-  top: 32rem;
-  right: 0rem;
+  top: 31rem;
+  right: 1rem;
 }
 
 /* Desayuno */
-
 .ay-event-desayuno {
-  top: 37rem;
-  left: 4rem;
+  top: 36rem;
+  left: 3rem;
 }
 
 /* ==========================================
-   ITINERARIO WEB
+   Itinerario mobile angosto
+   iPhone 16 / navegadores internos
+========================================== */
+
+@media (max-width: 400px) {
+  .ay-itinerary-wrapper {
+    max-width: 390px;
+    min-height: 850px;
+  }
+
+  .ay-timeline-line {
+    width: 155px;
+  }
+
+  .ay-hacienda,
+  .ay-iglesia {
+    width: 88px;
+  }
+
+  .ay-event {
+    width: 132px;
+    gap: 8px;
+  }
+
+  .ay-event-icon {
+    width: 42px;
+  }
+
+  .ay-event strong {
+    font-size: 1.35rem;
+  }
+
+  .ay-event p {
+    font-size: 0.95rem;
+  }
+
+  .ay-event-civil {
+    top: 2.5rem;
+    right: 0.8rem;
+  }
+
+  .ay-event-ceremonia {
+    top: 12rem;
+    left: 2rem;
+  }
+
+  .ay-event-coctel {
+    top: 16rem;
+    right: 0.8rem;
+  }
+
+  .ay-event-banquete {
+    top: 21rem;
+    left: 2rem;
+  }
+
+  .ay-event-after {
+    top: 29rem;
+    right: 0.8rem;
+  }
+
+  .ay-event-desayuno {
+    top: 33rem;
+    left: 2rem;
+  }
+}
+
+/* ==========================================
+   Itinerario web
 ========================================== */
 
 @media (min-width: 769px) {
