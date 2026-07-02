@@ -1,30 +1,45 @@
-// app/novios/page.tsx
-import { createServerSupabaseClient } from '@/lib/supabase/server'; 
-import { redirect } from 'next/navigation';
-import NoviosDashboard from '@/components/dashboard/NoviosDashboard';
-// Importamos los componentes de cliente directamente en el Server Component
-import Header from '@/components/Header'; 
-import Footer from '@/components/Footer'; 
+'use client';
 
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
-export default async function NoviosPage() {
-    
-    const supabase = createServerSupabaseClient();
-    const { data } = await supabase.auth.getSession();
+export default function NoviosAccessPage() {
+  const router = useRouter();
+  const [code, setCode] = useState('');
 
-    if (!data.session) {
-        // La protección de ruta debe funcionar siempre aquí.
-        redirect('/login');
+  const handleSubmit = () => {
+    if (code.trim() !== process.env.NEXT_PUBLIC_ABIGAIL_YAMIL_ADMIN_CODE) {
+      alert('Código incorrecto');
+      return;
     }
 
-    // Retornamos los componentes de cliente envolviendo al Dashboard.
-    // Esto es un patrón válido en Next.js.
-    return (
-        <>
-            {/* Header y Footer se renderizarán una vez en el servidor */}
-            <Header />
-            <NoviosDashboard />
-            <Footer />
-        </>
-    );
+    sessionStorage.setItem('abigail-yamil-admin', 'true');
+    router.push('/admin/abigail-yamil/confirmados');
+  };
+
+  return (
+    <main className="ay-rsvp-page">
+      <section className="ay-rsvp-form-card">
+        <h1>Acceso novios</h1>
+
+        <p>Ingresa el código para ver las confirmaciones.</p>
+
+        <input
+          type="password"
+          value={code}
+          onChange={(event) => setCode(event.target.value)}
+          placeholder="Código de acceso"
+          className="ay-rsvp-input"
+        />
+
+        <button
+          type="button"
+          className="ay-rsvp-submit"
+          onClick={handleSubmit}
+        >
+          Entrar
+        </button>
+      </section>
+    </main>
+  );
 }

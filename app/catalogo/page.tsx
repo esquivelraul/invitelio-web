@@ -1,90 +1,68 @@
+import Header from '../../components/Header';
+import Footer from '../../components/Footer';
+import Link from 'next/link';
 
-// invitaciones-vercel/app/catalogo/page.tsx
-
-// IMPORTACIONES CORREGIDAS: Sin la extensión .tsx
-import Header from '../../components/Header'; 
-import Footer from '../../components/Footer'; 
-import Link from 'next/link'; 
-
-// Componente principal de la página Catálogo (Server Component)
 export default function CatalogoPage() {
-    return (
-        <>
-            <Header />
+  return (
+    <>
+      <Header />
 
-            <main className="container" id="main-content">
-                <section className="diseño-header">
-                    <h1 className="titulo-seccion">Catálogo de Diseños</h1>
-                    <p className="subtitulo-seccion">
-                        Explora nuestra colección de invitaciones digitales. Elige la que mejor se adapte a tu evento y personalízala fácilmente.
-                    </p>
-                </section>
+      <main className="container" id="main-content">
+        <section className="diseño-header">
+          <h1 className="titulo-seccion">Catálogo de Diseños</h1>
 
-                <div className="diseños-grid">
-                    
-                    {/* Diseño 1 - Boda */}
-                    <div className="diseño-card">
-                        <div className="diseño-img-container">
-                            <img 
-                                src="/images/diseno-boda.jpg" 
-                                alt="Invitación de Boda Elegante" 
-                                className="diseño-img"
-                                width={300} 
-                                height={200}
-                            />
-                        </div>
-                        <div className="diseño-info">
-                            <h3>Boda Clásica</h3>
-                            <p>Elegancia y sofisticación en cada detalle. Perfecta para tu día especial.</p>
-                            <Link href="/bodas" className="btn-diseño">
-                                Personalizar <i className="fas fa-arrow-right"></i>
-                            </Link>
-                        </div>
-                    </div>
-                    
-                    {/* Diseño 2 - XV Años */}
-                    <div className="diseño-card">
-                        <div className="diseño-img-container">
-                            <img 
-                                src="/images/diseno-xv.jpg" 
-                                alt="Invitación de XV años moderna" 
-                                className="diseño-img"
-                                width={300} 
-                                height={200}
-                            />
-                        </div>
-                        <div className="diseño-info">
-                            <h3>XV Años Moderno</h3>
-                            <p>Diseño contemporáneo con efectos de brillo y colores vibrantes que celebran esta etapa única.</p>
-                            <a href="#" className="btn-diseño">
-                                Personalizar <i className="fas fa-arrow-right"></i>
-                            </a>
-                        </div>
-                    </div>
-                    
-                    {/* Diseño 3 - Corporativo */}
-                    <div className="diseño-card">
-                        <div className="diseño-img-container">
-                            <img 
-                                src="/images/diseno-corporativo.jpg" 
-                                alt="Invitación corporativa minimalista" 
-                                className="diseño-img"
-                                width={300} 
-                                height={200}
-                            />
-                        </div>
-                        <div className="diseño-info">
-                            <h3>Evento Corporativo</h3>
-                            <p>Líneas limpias y paleta profesional que transmite seriedad y buen gusto para tus clientes.</p>
-                            <a href="#" className="btn-diseño">
-                                Personalizar <i className="fas fa-arrow-right"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </main>
+          <p className="subtitulo-seccion">
+            Explora nuestro diseño base para bodas digitales.
+            Personalizable con fotografías, colores, tipografías,
+            ubicación, itinerario, mesa de regalos, RSVP y álbum compartido.
+          </p>
+        </section>
+<div className="bg-red-500 text-white p-4">
+  Tailwind funciona
+</div>
+        <div className="diseños-grid">
+          <div className="diseño-card">
 
-            <Footer />
-        </>
-    );
+            <div className="diseño-img-container">
+              <img
+                src="/assets/banner-boda.jpg"
+                alt="Invitación digital para boda elegante"
+                className="diseño-img"
+              />
+            </div>
+
+            <div className="diseño-info">
+              <h3>Boda Clásica</h3>
+
+              <p>
+                Diseño elegante y romántico para bodas.
+                Incluye cuenta regresiva, ubicación,
+                itinerario, dress code, mesa de regalos,
+                confirmación de asistencia y álbum compartido.
+              </p>
+
+              <div className="diseño-actions">
+                <Link
+                  href="/invitacion/boda-clasica"
+                  className="btn-diseño"
+                >
+                  Ver Demo
+                </Link>
+
+                <Link
+                  href="/contacto"
+                  className="btn-diseño btn-secundario"
+                >
+                  Personalizar
+                </Link>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </main>
+
+      <Footer />
+    </>
+  );
 }
