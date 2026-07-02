@@ -361,7 +361,7 @@ export default function AbigailYamilPage() {
 
 <div className="ay-gifts-actions">
   <a
-    href="URL_DE_MESA_DE_REGALOS_LIVERPOOL"
+    href="https://mesaderegalos.liverpool.com.mx/milistaderegalos/51982198"
     target="_blank"
     rel="noopener noreferrer"
     className="ay-gift-link"
@@ -470,6 +470,8 @@ export default function AbigailYamilPage() {
   </p>
 </section>
 </section>
+
+
 {showTours && (
   <div
     className="ay-tours-modal"

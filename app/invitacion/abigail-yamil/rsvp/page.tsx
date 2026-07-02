@@ -22,11 +22,15 @@ const handleSubmit = async () => {
     guest_names: cleanedGuests,
   });
 
-  if (error) {
-    alert('Ocurrió un error al guardar tu confirmación');
-    console.error(error);
-    return;
-  }
+ if (error) {
+  console.error('Error Supabase RSVP:', error);
+
+  alert(
+    `${error.message}\n\nCódigo: ${error.code || 'sin código'}`
+  );
+
+  return;
+}
 
   alert('¡Gracias! Tu asistencia ha sido confirmada.');
 };
