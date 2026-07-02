@@ -2658,6 +2658,44 @@ th {
   }
 }
 
+/* =========================================================
+   Abigail & Yamil v2 - Portada abrir invitación
+========================================================= */
+
+.ay-invitation-cover {
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+
+  width: 100%;
+  height: 100dvh;
+
+  padding: 0;
+  border: 0;
+  background: #b88a78;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.ay-invitation-cover-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+
+/* QR clickeable */
+
+.ay-qr-link {
+  display: inline-block;
+  line-height: 0;
+}
 
 
 

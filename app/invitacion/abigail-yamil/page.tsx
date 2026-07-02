@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { abigailYamil } from '../../../lib/invitations/abigail-yamil';
 import Countdown from '../../../components/Countdown';
 
@@ -51,9 +51,40 @@ function AlbumBook() {
 
 export default function AbigailYamilPage() {
   const [showTours, setShowTours] = useState(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const [isInvitationOpen, setIsInvitationOpen] = useState(false);
+
+  const openInvitation = () => {
+    setIsInvitationOpen(true);
+
+    void audioRef.current?.play().catch((error) => {
+      console.error('No se pudo reproducir la música:', error);
+    });
+  };
 
   return (
     <main className="ay-page">
+      <audio
+        ref={audioRef}
+        src="/assets/abigail-yamil/musica.mp3"
+        loop
+        preload="auto"
+      />
+
+      {!isInvitationOpen && (
+        <button
+          type="button"
+          className="ay-invitation-cover"
+          onClick={openInvitation}
+          aria-label="Abrir invitación de Abigail y Yamil"
+        >
+          <img
+            src="/assets/abigail-yamil/portada-abrir-invitacion.png"
+            alt=""
+            className="ay-invitation-cover-image"
+          />
+        </button>
+      )}
       <section className="ay-hero">
         <div className="ay-hero-photo">
           <img
@@ -444,11 +475,19 @@ export default function AbigailYamilPage() {
    </p>
 
    
-   <img
-      src="/assets/abigail-yamil/qr-google-photos.png"
-      alt="QR Google Photos"
-      className="ay-qr"
-   />
+   <a
+  href="https://photos.app.goo.gl/WiBuHaPTC2AV4sXo7"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="ay-qr-link"
+  aria-label="Abrir álbum de fotos compartido"
+>
+  <img
+    src="/assets/abigail-yamil/qr-google-photos.png"
+    alt="QR Google Photos"
+    className="ay-qr"
+  />
+</a>
 
 
    <div className="ay-album-flowers">
