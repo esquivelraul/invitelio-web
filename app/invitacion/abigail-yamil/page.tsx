@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { abigailYamil } from '../../../lib/invitations/abigail-yamil';
 import Countdown from '../../../components/Countdown';
 
@@ -54,7 +54,17 @@ export default function AbigailYamilPage() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [isInvitationOpen, setIsInvitationOpen] = useState(false);
 
+  useEffect(() => {
+    const wasAlreadyOpened =
+      sessionStorage.getItem('abigail-yamil-invitation-open') === 'true';
+
+    if (wasAlreadyOpened) {
+      setIsInvitationOpen(true);
+    }
+  }, []);
+
   const openInvitation = () => {
+    sessionStorage.setItem('abigail-yamil-invitation-open', 'true');
     setIsInvitationOpen(true);
 
     void audioRef.current?.play().catch((error) => {
