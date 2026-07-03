@@ -26,7 +26,7 @@ function AlbumBook() {
       setCurrentPhoto((prev) => (prev + 1) % albumPhotos.length);
       setIsSliding(false);
       timeoutRef.current = null;
-    }, 1);
+    }, 20);
   }, []);
 
   useEffect(() => {
