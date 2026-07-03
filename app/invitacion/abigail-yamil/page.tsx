@@ -1,51 +1,69 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { abigailYamil } from '../../../lib/invitations/abigail-yamil';
 import Countdown from '../../../components/Countdown';
 
+const albumPhotos = [
+  '/assets/abigail-yamil/album-1.JPG',
+  '/assets/abigail-yamil/album-2.JPG',
+  '/assets/abigail-yamil/album-3.JPG',
+  '/assets/abigail-yamil/album-4.JPG',
+  '/assets/abigail-yamil/album-5.JPG',
+];
+
 function AlbumBook() {
   const [currentPhoto, setCurrentPhoto] = useState(0);
-  const [isTurning, setIsTurning] = useState(false);
+  const [isSliding, setIsSliding] = useState(false);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const albumPhotos = [
-    '/assets/abigail-yamil/album-1.JPG',
-    '/assets/abigail-yamil/album-2.JPG',
-    '/assets/abigail-yamil/album-3.JPG',
-    '/assets/abigail-yamil/album-4.JPG',
-    '/assets/abigail-yamil/album-5.JPG',
-  ];
+  const nextPhoto = useCallback(() => {
+    if (timeoutRef.current) return;
 
-  const nextPhoto = () => {
-    setIsTurning(true);
+    setIsSliding(true);
 
-    setTimeout(() => {
+    timeoutRef.current = setTimeout(() => {
       setCurrentPhoto((prev) => (prev + 1) % albumPhotos.length);
-      setIsTurning(false);
-    }, 360);
-  };
+      setIsSliding(false);
+      timeoutRef.current = null;
+    }, 1);
+  }, []);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      nextPhoto();
+    }, 3200);
+
+    return () => {
+      clearInterval(intervalId);
+
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, [nextPhoto]);
 
   return (
     <button
-   className={`ay-album-book ${isTurning ? 'is-turning' : ''}`}
-   onClick={nextPhoto}
->
+      type="button"
+      className={`ay-album-book ay-album-slider ${
+        isSliding ? 'is-sliding' : ''
+      }`}
+      onClick={nextPhoto}
+      aria-label="Ver siguiente foto del álbum"
+    >
+      <img
+        className="ay-album-next"
+        src={albumPhotos[(currentPhoto + 1) % albumPhotos.length]}
+        alt=""
+      />
 
-   <img
-      className="ay-album-next"
-      src={albumPhotos[
-         (currentPhoto + 1) % albumPhotos.length
-      ]}
-      alt=""
-   />
-
-   <img
-      className="ay-album-current"
-      src={albumPhotos[currentPhoto]}
-      alt=""
-   />
-
-</button>
+      <img
+        className="ay-album-current"
+        src={albumPhotos[currentPhoto]}
+        alt=""
+      />
+    </button>
   );
 }
 

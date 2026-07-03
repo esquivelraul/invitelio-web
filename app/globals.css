@@ -2280,92 +2280,94 @@ th {
 }
 
 /* =========================================================
-   Abigail & Yamil v2 - Álbum
+   Abigail & Yamil v2 - Álbum slider automático con marco cuadrado
 ========================================================= */
 
-.ay-album-book{
-   position:relative;
-
-   width:220px;
-   height:290px;
-
-   margin:auto;
-
-   border:none;
-   background:none;
-
-   cursor:pointer;
-
-   perspective:1200px;
-}
-
-.ay-album-book img{
-
-   position:absolute;
-
-   inset:0;
-
-   width:100%;
-   height:100%;
-
-   object-fit:cover;
-
-   border:7px solid #fff;
-
-   box-shadow:
-   0 18px 35px rgba(0,0,0,.18);
-
-}
-
-.ay-album-next{
-
-   z-index:1;
-
-   transform:
-   translate(12px,-10px)
-   rotate(2deg);
-
-}
-
-.ay-album-current{
-
-   z-index:2;
-
-   transform-origin:left center;
-
-   transition:
-   transform .55s ease,
-   opacity .55s ease;
-
-}
-
-.ay-album-book.is-turning
-.ay-album-current{
-
-   transform:
-   rotateY(-105deg);
-
-   opacity:.25;
-
-}
-.ay-album-section h2 {
-  margin-bottom: 0.4rem;
-}
-
 .ay-album-book {
-  width: 360px;
-  height: 580px;
+  position: relative;
+  display: block;
+
+  width: min(270px, 72vw);
+  aspect-ratio: 3 / 4;
+
+  margin: 0 auto;
+  padding: 0;
+
+  border-style: solid;
+  border-color: #fffaf3;
+  border-width: 8px 8px 8px;
+
+  border-radius: 0;
+  box-sizing: border-box;
+
+  background: #fffaf3;
+  overflow: hidden;
+  cursor: pointer;
+
+  box-shadow:
+    0 18px 38px rgba(70, 42, 34, 0.28),
+    0 4px 10px rgba(70, 42, 34, 0.12);
 }
 
-.ay-album-hint {
-  margin-top: 0.55rem;
-  font-size: 0.68rem;
+.ay-album-book.ay-album-slider .ay-album-current,
+.ay-album-book.ay-album-slider .ay-album-next {
+  position: absolute;
+  inset: 0;
+
+  display: block;
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+  border-radius: 0;
+
+  will-change: transform, opacity;
+  transition:
+    transform 650ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 650ms ease;
+}
+
+.ay-album-book.ay-album-slider .ay-album-current {
+  z-index: 2;
+  transform: translateX(0) scale(1);
+  opacity: 1;
+}
+
+.ay-album-book.ay-album-slider .ay-album-next {
+  z-index: 1;
+  transform: translateX(-8%) scale(1.02);
+  opacity: 0.95;
+}
+
+.ay-album-book.ay-album-slider.is-sliding .ay-album-current {
+  transform: translateX(110%) scale(0.98);
+  opacity: 0;
+}
+
+.ay-album-book.ay-album-slider.is-sliding .ay-album-next {
+  transform: translateX(0) scale(1);
+  opacity: 1;
 }
 
 @media (min-width: 769px) {
   .ay-album-book {
-    width: 260px;
-    height: 340px;
+    width: 320px;
+    border-width: 12px 12px 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ay-album-book.ay-album-slider .ay-album-current,
+  .ay-album-book.ay-album-slider .ay-album-next {
+    transition: opacity 300ms ease;
+  }
+
+  .ay-album-book.ay-album-slider.is-sliding .ay-album-current {
+    transform: none;
+  }
+
+  .ay-album-book.ay-album-slider.is-sliding .ay-album-next {
+    transform: none;
   }
 }
 
